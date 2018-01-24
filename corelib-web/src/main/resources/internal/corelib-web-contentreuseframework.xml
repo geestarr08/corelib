@@ -47,4 +47,17 @@
 		<constructor-arg ref="corelib_web_S3ObjectStorageClient"/>
 	</bean>
 
+	<bean id="bluemix_S3ObjectStorageClient" class="eu.europeana.features.S3ObjectStorageClient">
+		<constructor-arg value="#{europeanaProperties['bluemix.s3.key']}"/>
+		<constructor-arg value="#{europeanaProperties['bluemix.s3.secret']}"/>
+		<constructor-arg value="#{europeanaProperties['bluemix.s3.region']}"/>
+		<constructor-arg value="#{europeanaProperties['bluemix.s3.bucket']}"/>
+		<constructor-arg value="#{europeanaProperties['bluemix.s3.endpoint']}"/>
+	</bean>
+
+	<bean id="bluemix_mediaStorageClient"
+		  class="eu.europeana.corelib.service.impl.EuropeanaObjectStorageClientImpl" >
+		<constructor-arg ref="bluemix_S3ObjectStorageClient"/>
+	</bean>
+
 </beans>
