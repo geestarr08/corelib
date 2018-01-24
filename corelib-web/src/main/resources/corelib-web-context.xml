@@ -46,6 +46,7 @@
 
 	<bean id="corelib_web_MicrosoftTranslatorService" class="eu.europeana.corelib.web.service.impl.MicrosoftTranslatorServiceImpl" />
 
-    <bean id="corelib_web_MediaStorageService" class="eu.europeana.corelib.web.service.impl.MediaStorageServiceImpl" />
+    <bean id="amazon_S3Service" class="eu.europeana.corelib.web.service.impl.AmazonS3ServiceImpl" />
 
+	<bean id="bluemix_S3Service" class="eu.europeana.corelib.web.service.impl.BluemixS3ServiceImpl" />
 </beans>

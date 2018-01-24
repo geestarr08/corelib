@@ -6,9 +6,9 @@ import eu.europeana.corelib.web.service.MediaStorageService;
 
 import javax.annotation.Resource;
 
-public class MediaStorageServiceImpl implements MediaStorageService {
+public class AmazonS3ServiceImpl implements MediaStorageService {
 
-    @Resource(name = "corelib_mediaStorageClient")
+    @Resource(name = "amazon_S3Client")
     private MediaStorageClient mediaStorageClient;
 
     /**

@@ -19,14 +19,14 @@ import java.util.Optional;
 
 import static org.jclouds.io.Payloads.newByteArrayPayload;
 
-public class EuropeanaObjectStorageClientImpl implements MediaStorageClient {
+public class AmazonS3ClientImpl implements MediaStorageClient {
 
-    private static final Logger LOG = Logger.getLogger(EuropeanaObjectStorageClientImpl.class);
+    private static final Logger LOG = Logger.getLogger(AmazonS3ClientImpl.class);
 
-    @Resource(name = "corelib_web_S3ObjectStorageClient")
+    @Resource(name = "amazon_S3ObjectStorageClient")
     ObjectStorageClient objectApi;
 
-    public EuropeanaObjectStorageClientImpl(S3ObjectStorageClient s3ObjectStorageClient) {
+    public AmazonS3ClientImpl(S3ObjectStorageClient s3ObjectStorageClient) {
         this.objectApi = s3ObjectStorageClient;
     }
 

@@ -35,16 +35,16 @@
 	<bean id="corelib_web_contentReuseFrameworkService" 
 		class="eu.europeana.corelib.web.service.impl.ContentReuseFrameworkServiceImpl" /> -->
 
-	<bean id="corelib_web_S3ObjectStorageClient" class="eu.europeana.features.S3ObjectStorageClient">
+	<bean id="amazon_S3ObjectStorageClient" class="eu.europeana.features.S3ObjectStorageClient">
 		<constructor-arg value="#{europeanaProperties['contentreuse.s3.key']}"/>
 		<constructor-arg value="#{europeanaProperties['contentreuse.s3.secret']}"/>
 		<constructor-arg value="#{europeanaProperties['contentreuse.s3.region']}"/>
 		<constructor-arg value="#{europeanaProperties['contentreuse.s3.bucket']}"/>
 	</bean>
 
-    <bean id="corelib_mediaStorageClient"
-          class="eu.europeana.corelib.service.impl.EuropeanaObjectStorageClientImpl" >
-		<constructor-arg ref="corelib_web_S3ObjectStorageClient"/>
+    <bean id="amazon_S3Client"
+          class="eu.europeana.corelib.service.impl.AmazonS3ClientImpl" >
+		<constructor-arg ref="amazon_S3ObjectStorageClient"/>
 	</bean>
 
 	<bean id="bluemix_S3ObjectStorageClient" class="eu.europeana.features.S3ObjectStorageClient">
@@ -55,8 +55,8 @@
 		<constructor-arg value="#{europeanaProperties['bluemix.s3.endpoint']}"/>
 	</bean>
 
-	<bean id="bluemix_mediaStorageClient"
-		  class="eu.europeana.corelib.service.impl.EuropeanaObjectStorageClientImpl" >
+	<bean id="bluemix_S3Client"
+		  class="eu.europeana.corelib.service.impl.BluemixS3ClientImpl" >
 		<constructor-arg ref="bluemix_S3ObjectStorageClient"/>
 	</bean>
 
