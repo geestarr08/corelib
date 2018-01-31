@@ -39,5 +39,6 @@
     </bean>
 
     <bean id="corelib_web_S3ObjectStorageClient" class="eu.europeana.corelib.EmptyBean"/>
+    <!--<bean id="amazon_S3Client" class="eu.europeana.corelib.EmptyBean"/>-->
 
 </beans>
