@@ -38,7 +38,17 @@
         <constructor-arg value="eu.europeana.corelib.service.MediaStorageClient"/>
     </bean>
 
+    <bean id="amazon_S3Client" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="eu.europeana.corelib.service.MediaStorageClient"/>
+    </bean>
+
+    <bean id="bluemix_S3Client" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="eu.europeana.corelib.service.MediaStorageClient"/>
+    </bean>
+
     <bean id="corelib_web_S3ObjectStorageClient" class="eu.europeana.corelib.EmptyBean"/>
-    <!--<bean id="amazon_S3Client" class="eu.europeana.corelib.EmptyBean"/>-->
+
+    <bean id="amazon_S3ObjectStorageClient" class="eu.europeana.corelib.EmptyBean"/>
+    <bean id="bluemix_S3ObjectStorageClient" class="eu.europeana.corelib.EmptyBean"/>
 
 </beans>
