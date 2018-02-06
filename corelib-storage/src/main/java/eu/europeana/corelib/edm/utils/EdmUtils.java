@@ -58,7 +58,7 @@ public class EdmUtils {
 
     private static IBindingFactory bfact;
     private static final  String SPACE = " ";
-    private static final  String PREFIX = "http://data.europeana.eu";
+    private static final  String PREFIX = "https://data.europeana.eu";
     private static final  String LONGDATATYPE = "http://www.w3.org/2001/XMLSchema#long";
     private static final String HEXBINARYDATATYPE = "http://www.w3.org/2001/XMLSchema#hexBinary";
     private static final String STRINGDATATYPE = "http://www.w3.org/2001/XMLSchema#string";

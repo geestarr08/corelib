@@ -1,23 +1,23 @@
 package eu.europeana.corelib.definitions.solr.model;
 
-import static org.junit.Assert.*;
+import eu.europeana.corelib.definitions.solr.SolrFacetType;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import eu.europeana.corelib.definitions.solr.SolrFacetType;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class QueryTest {
 
-	private String rights = "(\"http://creativecommons.org/publicdomain/mark/\""
-			+ " OR \"http://creativecommons.org/publicdomain/zero\""
-			+ " OR \"http://creativecommons.org/licenses/by/\""
-			+ " OR \"http://creativecommons.org/licenses/by-sa/\")";
-	private String singleRight = "\"http://creativecommons.org/publicdomain/mark/1.0/\"";
-	private String anotherRight = "\"http://www.europeana.eu/rights/rr-f/\"";
+	private String rights = "(\"https://creativecommons.org/publicdomain/mark/\""
+			+ " OR \"https://creativecommons.org/publicdomain/zero\""
+			+ " OR \"https://creativecommons.org/licenses/by/\""
+			+ " OR \"https://creativecommons.org/licenses/by-sa/\")";
+	private String singleRight = "\"https://creativecommons.org/publicdomain/mark/1.0/\"";
+	private String anotherRight = "\"https://www.europeana.eu/rights/rr-f/\"";
 
 	private Map<String, String> valueReplacements = new HashMap<String, String>();
 

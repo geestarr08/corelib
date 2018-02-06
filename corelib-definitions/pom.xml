@@ -20,7 +20,7 @@
 	<groupId>eu.europeana.corelib</groupId>
 	<artifactId>corelib-definitions</artifactId>
 	<name>Europeana Core Library Definitions</name>
-	<url>http://www.europeanalabs.eu</url>
+	<url>https://www.europeana.eu/</url>
 	<dependencies>
 		<!-- Corelib -->
 		<dependency>

@@ -138,7 +138,7 @@
     <repositories>
         <repository>
             <id>Artifactory release</id>
-            <url>http://artifactory.eanadev.org/artifactory/ext-release-local</url>
+            <url>https://artifactory.eanadev.org/artifactory/ext-release-local</url>
             <releases>
                 <enabled>true</enabled>
             </releases>

@@ -1,25 +1,26 @@
 package eu.europeana.corelib.web.service.impl;
 
+import eu.europeana.corelib.web.model.ApiResult;
+import eu.europeana.corelib.web.model.ApiResultImpl;
+import eu.europeana.corelib.web.service.JsonApiService;
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.io.IOUtils;
-
-import eu.europeana.corelib.web.model.ApiResult;
-import eu.europeana.corelib.web.model.ApiResultImpl;
-import eu.europeana.corelib.web.service.JsonApiService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class JsonApiServiceImpl implements JsonApiService {
 
-	private static final String USER_AGENT = "Europeana API-bot/2.0 (Europeana; http://europeana.eu; api@europeana.eu)";
-
+	@Value("#{europeanaProperties['portal.server']}")
+	private static String PORTALSERVER;
+	private static final String USER_AGENT = "Europeana API-bot/2.0 (Europeana; " + PORTALSERVER + "; api@europeana.eu)";
 	private static final Logger LOG = LogManager.getLogger(JsonApiServiceImpl.class);
 
 	private String lastUrl;

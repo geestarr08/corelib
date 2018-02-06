@@ -6,24 +6,29 @@
 package eu.europeana.corelib.edm.utils.construct;
 
 
-import org.apache.solr.common.SolrInputDocument;
-
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.model.EdmLabel;
 import eu.europeana.corelib.edm.utils.SolrUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.solr.common.SolrInputDocument;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  *
  * @author Yorgos.Mamakis@ europeana.eu
  */
 public class EuropeanaAggregationSolrCreator {
+    private static String PORTALSERVER;
 
-    private static final String PORTAL_PREFIX = "http://europeana.eu/portal/record/";
+    @Value("#{europeanaProperties['portal.server']}")
+    private void setPortalServer(String ps){
+        PORTALSERVER = ps;
+    }
+
+    private static final String PORTAL_PREFIX = PORTALSERVER + "portal/record/";
     private static final String PORTAL_SUFFIX = ".html";
 
     public void create(SolrInputDocument doc, EuropeanaAggregation aggr) {

@@ -18,143 +18,160 @@
 package eu.europeana.corelib.definitions.model;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * Class represents a set of rights that can be attached to an item in the Europeana website.
  *
- * @author kevinparkings
  * @author Andy MacLean
+ * @author Luthien
  */
 public enum RightsOption {
+
 
     /* = = = | OPEN LICENCES | = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
     /**
      * open
-     * http://creativecommons.org/publicdomain/mark/
+     * https://creativecommons.org/publicdomain/mark/1.0/
      */
-    CC_NOC("http://creativecommons.org/publicdomain/mark/", "Public Domain marked", "icon-pd", true),
+    CC_NOC(BaseUrls.CC + "publicdomain/mark/1.0/", "Public Domain marked", "icon-pd", true),
 
     /**
      * open
-     * http://creativecommons.org/publicdomain/zero
+     * https://creativecommons.org/publicdomain/zero
      */
-    CC_ZERO("http://creativecommons.org/publicdomain/zero", "CC0", "icon-cczero", true),
+    CC_ZERO(BaseUrls.CC + "publicdomain/zero/1.0/", "CC0", "icon-cczero", true),
 
     /**
      * open
-     * http://creativecommons.org/licenses/by/
+     * https://creativecommons.org/licenses/by/
      */
-    CC_BY("http://creativecommons.org/licenses/by/", "CC BY", "icon-cc icon-by",  true),
+    CC_BY(BaseUrls.CC + "licenses/by/", "CC BY", "icon-cc icon-by",  true),
 
     /**
      * open
-     * http://creativecommons.org/licenses/by-sa/
+     * https://creativecommons.org/licenses/by-sa/
      */
-    CC_BY_SA("http://creativecommons.org/licenses/by-sa/", "CC BY-SA", "icon-cc icon-by icon-sa", true),
+    CC_BY_SA(BaseUrls.CC + "licenses/by-sa/", "CC BY-SA", "icon-cc icon-by icon-sa", true),
 
 
     /* = = = | RESTRICTED LICENCES | = = = = = = = = = = = = = = = = = = = = = = = */
 
     /**
      * restricted
-     * http://creativecommons.org/licenses/by-nc/
+     * https://creativecommons.org/licenses/by-nc/
      */
-    CC_BY_NC("http://creativecommons.org/licenses/by-nc/", "CC BY-NC", "icon-cc icon-by icon-nceu", true),
+    CC_BY_NC(BaseUrls.CC + "licenses/by-nc/", "CC BY-NC", "icon-cc icon-by icon-nceu", true),
 
     /**
      * restricted
-     * http://creativecommons.org/licenses/by-nc-sa/
+     * https://creativecommons.org/licenses/by-nc-sa/
      */
-    CC_BY_NC_SA("http://creativecommons.org/licenses/by-nc-sa/", "CC BY-NC-SA", "icon-cc icon-by icon-nceu icon-sa", true),
+    CC_BY_NC_SA(BaseUrls.CC + "licenses/by-nc-sa/", "CC BY-NC-SA", "icon-cc icon-by icon-nceu icon-sa", true),
 
     /**
      * restricted
-     * http://creativecommons.org/licenses/by-nc-nd/
+     * https://creativecommons.org/licenses/by-nc-nd/
      */
-    CC_BY_NC_ND("http://creativecommons.org/licenses/by-nc-nd/", "CC BY-NC-ND", "icon-cc icon-by icon-nceu icon-nd", true),
+    CC_BY_NC_ND(BaseUrls.CC + "licenses/by-nc-nd/", "CC BY-NC-ND", "icon-cc icon-by icon-nceu icon-nd", true),
 
     /**
      * restricted
-     * http://creativecommons.org/licenses/by-nd/
+     * https://creativecommons.org/licenses/by-nd/
      */
-    CC_BY_ND("http://creativecommons.org/licenses/by-nd/", "CC BY-ND", "icon-cc icon-by icon-nd", true),
+    CC_BY_ND(BaseUrls.CC + "licenses/by-nd/", "CC BY-ND", "icon-cc icon-by icon-nd", true),
 
     /**
      * restricted
-     * http://www.europeana.eu/rights/out-of-copyright-non-commercial/
+     * https://www.europeana.eu/rights/out-of-copyright-non-commercial/
      */
-    EU_OOC_NC("http://www.europeana.eu/rights/out-of-copyright-non-commercial/",
+    EU_OOC_NC(BaseUrls.EU + "out-of-copyright-non-commercial/",
             "Out of copyright - non commercial re-use", "icon-publicdomain icon-nceu", false, true),
 
     /**
      * restricted
      * http://rightsstatements.org/vocab/InC-EDU/1.0/
      */
-    RS_INC_EDU("http://rightsstatements.org/vocab/InC-EDU/1.0/", "In copyright - educational user permitted", "", true),
+    RS_INC_EDU(BaseUrls.RS + "InC-EDU/1.0/", "In copyright - educational user permitted", "", true),
 
     /**
      * restricted
      * http://rightsstatements.org/vocab/NoC-NC/1.0/
      */
-    RS_NOC_NC("http://rightsstatements.org/vocab/NoC-NC/1.0/", "No copyright - non-commercial use only", "", true),
+    RS_NOC_NC(BaseUrls.RS + "NoC-NC/1.0/", "No copyright - non-commercial use only", "", true),
 
     /**
      * restricted
      * http://rightsstatements.org/vocab/NoC-OKLR/1.0/
      */
-    RS_NOC_OKLR("http://rightsstatements.org/vocab/NoC-OKLR/1.0/", "No copyright - other known legal restrictions", "", true),
+    RS_NOC_OKLR(BaseUrls.RS + "NoC-OKLR/1.0/", "No copyright - other known legal restrictions", "", true),
 
 
     /* = = = | PERMISSION LICENCES | = = = = = = = = = = = = = = = = = = = = = = = */
 
     /**
      * permission
-     * http://www.europeana.eu/rights/rr-f/
+     * https://www.europeana.eu/rights/rr-f/
      */
-    EU_RR_F("http://www.europeana.eu/rights/rr-f/", "Rights Reserved - Free Access", "icon-copyright", false, true),
+    EU_RR_F(BaseUrls.EU + "rr-f/", "Rights Reserved - Free Access", "icon-copyright", false, true),
 
     /**
      * permission
-     * http://www.europeana.eu/rights/rr-p/
+     * https://www.europeana.eu/rights/rr-p/
      */
-    EU_RR_P("http://www.europeana.eu/rights/rr-p/", "Rights Reserved - Paid Access", "icon-copyright", false, true),
+    EU_RR_P(BaseUrls.EU + "rr-p/", "Rights Reserved - Paid Access", "icon-copyright", false, true),
 
     /**
      * permission
-     * http://www.europeana.eu/rights/rr-r/
+     * https://www.europeana.eu/rights/rr-r/
      */
-    EU_RR_R("http://www.europeana.eu/rights/rr-r/", "Restricted Access - Rights Reserved", "icon-copyright", false, true),
+    EU_RR_R(BaseUrls.EU + "rr-r/", "Restricted Access - Rights Reserved", "icon-copyright", false, true),
 
     /**
      * permission
-     * http://www.europeana.eu/rights/unknown/
+     * https://www.europeana.eu/rights/unknown/
      */
-    EU_U("http://www.europeana.eu/rights/unknown/", "Unknown copyright status", "icon-unknown", false, true),
+    EU_U(BaseUrls.EU + "unknown", "Unknown copyright status", "icon-unknown", false, true),
 
     /**
      * permission
-     * http://www.europeana.eu/rights/test-orphan-work-test/
+     * https://www.europeana.eu/rights/test-orphan-work-test/
      */
-    EU_ORPHAN("http://www.europeana.eu/rights/test-orphan-work-test/", "Orphan Work", "icon-unknown", false, true),
+    EU_ORPHAN(BaseUrls.EU + "test-orphan-work-test/", "Orphan Work", "icon-unknown", false, true),
 
     /**
      * permission
      * http://rightsstatements.org/vocab/InC/1.0/
      */
-    RS_INC("http://rightsstatements.org/vocab/InC/1.0/", "In Copyright", "", true),
+    RS_INC(BaseUrls.RS + "InC/1.0/", "In Copyright", "", true),
 
     /**
      * permission
      * http://rightsstatements.org/vocab/InC-OW-EU/1.0/
      */
-    RS_INC_OW_EU("http://rightsstatements.org/vocab/InC-OW-EU/1.0/", "In copyright - EU orphan work", "", true),
+    RS_INC_OW_EU(BaseUrls.RS + "InC-OW-EU/1.0/", "In copyright - EU orphan work", "", true),
 
     /**
      * permission
      * http://rightsstatements.org/vocab/CNE/1.0/
      */
-    RS_CNE("http://rightsstatements.org/vocab/CNE/1.0/", "Copyright not evaluated", "", true);
+    RS_CNE(BaseUrls.RS + "CNE/1.0/", "Copyright not evaluated", "", true);
+
+    private static class BaseUrls{
+        private static String PORTALSERVER;
+
+        @Value("#{europeanaProperties['portal.server']}")
+        private void setPortalServer(String ps){
+            PORTALSERVER = ps;
+        }
+
+        private static final String EU = PORTALSERVER + "rights/";
+        private static final String CC = "https://creativecommons.org/";
+        private static final String RS = "http://rightsstatements.org/vocab/";
+    }
+
+   
 
     private String url = null;
     private String rightsText = null;
@@ -197,7 +214,7 @@ public enum RightsOption {
                 if (!portalUrl.endsWith("/")) {
                     portalUrl += "/";
                 }
-                relativeUrl = url.replace("http://www.europeana.eu/", portalUrl)
+                relativeUrl = url.replace("https://www.europeana.eu/", portalUrl)
                         .replaceAll("/$", ".html");
             } else {
                 relativeUrl = url;

@@ -33,6 +33,7 @@ import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.*;
 import eu.europeana.corelib.tools.lookuptable.EuropeanaId;
 import eu.europeana.corelib.tools.lookuptable.EuropeanaIdMongoServer;
+import org.springframework.beans.factory.annotation.Value;
 
 
 /**
@@ -41,6 +42,12 @@ import eu.europeana.corelib.tools.lookuptable.EuropeanaIdMongoServer;
  * 
  */
 public class EdmMongoServerImpl implements EdmMongoServer {
+	private static String PORTALSERVER;
+
+	@Value("#{europeanaProperties['portal.server']}")
+	private void setPortalServer(String ps){
+		PORTALSERVER = ps;
+	}
 
 	private static final Logger LOG = Logger.getLogger(EdmMongoServerImpl.class);
 
@@ -48,8 +55,8 @@ public class EdmMongoServerImpl implements EdmMongoServer {
 	private String databaseName;
 	private Datastore datastore;
 	private EuropeanaIdMongoServer europeanaIdMongoServer;
-	private static final String RESOLVE_PREFIX = "http://www.europeana.eu/resolve/record";
-	private static final String PORTAL_PREFIX = "http://www.europeana.eu/portal/record";
+	private static final String RESOLVE_PREFIX = PORTALSERVER + "resolve/record";
+	private static final String PORTAL_PREFIX = PORTALSERVER + "portal/record/";
 
 	/**
 	 * Create a new Morphia datastore to do get/delete/save operations on the database

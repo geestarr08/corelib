@@ -1,22 +1,29 @@
 package eu.europeana.corelib.edm.utils.construct;
 
-import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
-
-import eu.europeana.corelib.storage.MongoServer;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
+import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.edm.utils.MongoUtils;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
+import eu.europeana.corelib.storage.MongoServer;
+import org.apache.commons.lang.StringUtils;
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 public class EuropeanaAggregationUpdater implements	Updater<EuropeanaAggregationImpl> {
-	private static final String PORTAL_PREFIX = "http://europeana.eu/portal/record/";
+	private static String PORTALSERVER;
+
+	@Value("#{europeanaProperties['portal.server']}")
+	private void setPortalServer(String ps){
+		PORTALSERVER = ps;
+	}
+
+	private static final String PORTAL_PREFIX = PORTALSERVER + "portal/record/";
     private static final String PORTAL_SUFFIX = ".html";
+
 	@Override
 	public EuropeanaAggregationImpl update(
 			EuropeanaAggregationImpl mongoEntity,

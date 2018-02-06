@@ -24,6 +24,7 @@ import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -36,6 +37,9 @@ import java.util.regex.Pattern;
  * Created by luthien on 30/11/2015.
  */
 public class AttributionSnippet {
+
+    @Value("#{europeanaProperties['portal.server']}")
+    private static String PORTALSERVER;
 
     private String textSnippet = "";
     private String htmlSnippet = "";
@@ -122,8 +126,8 @@ public class AttributionSnippet {
     }
 
     private void assembleHtmlSnippet(){
-        String rightsPage = "xhv:license http://www.europeana.eu/schemas/edm/rights";
-        String resPdUsgGd = "http://www.europeana.eu/rights/pd-usage-guide/";
+        String rightsPage = "xhv:license " + PORTALSERVER + "schemas/edm/rights";
+        String resPdUsgGd = PORTALSERVER + "rights/pd-usage-guide/";
         String span = "</span>";
         if (titleMap.size() > 0){
             if (StringUtils.isNotBlank(landingPage)) {

@@ -16,11 +16,8 @@
  */
 package eu.europeana.corelib.search.loader;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import com.ctc.wstx.stax.WstxInputFactory;
+import org.apache.commons.lang.StringUtils;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -28,10 +25,10 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.ctc.wstx.stax.WstxInputFactory;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Utility to create records in the form expected by ContentLoader.
@@ -47,8 +44,8 @@ public class SampleRecordCreator {
 
     private static final String START_DOCUMENT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<rdf:RDF xmlns:dcterms=\"http://purl.org/dc/terms/\"\n"
-            + "xmlns:edm=\"http://www.europeana.eu/schemas/edm/\"\n"
-            + "xmlns:enrichment=\"http://www.europeana.eu/schemas/edm/enrichment/\"\n"
+            + "xmlns:edm=\"https://www.europeana.eu/schemas/edm/\"\n"
+            + "xmlns:enrichment=\"https://www.europeana.eu/schemas/edm/enrichment/\"\n"
             + "xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
             + "xmlns:wgs84=\"http://www.w3.org/2003/01/geo/wgs84_pos#\"\n"
             + "xmlns:skos=\"http://www.w3.org/2004/02/skos/core#\"\n"

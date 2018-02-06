@@ -17,14 +17,11 @@
 
 package eu.europeana.corelib.db.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
-import java.util.Calendar;
-
-import javax.annotation.Resource;
-
+import eu.europeana.corelib.db.dao.RelationalDao;
+import eu.europeana.corelib.db.entity.relational.TokenImpl;
+import eu.europeana.corelib.db.exception.DatabaseException;
+import eu.europeana.corelib.definitions.db.entity.RelationalDatabase;
+import eu.europeana.corelib.definitions.db.entity.relational.Token;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,11 +29,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import eu.europeana.corelib.db.dao.RelationalDao;
-import eu.europeana.corelib.db.entity.relational.TokenImpl;
-import eu.europeana.corelib.db.exception.DatabaseException;
-import eu.europeana.corelib.definitions.db.entity.RelationalDatabase;
-import eu.europeana.corelib.definitions.db.entity.relational.Token;
+import javax.annotation.Resource;
+import java.util.Calendar;
+
+import static org.junit.Assert.*;
 
 /**
  * @author Willem-Jan Boogerd <www.eledge.net/contact>

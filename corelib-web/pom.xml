@@ -20,7 +20,7 @@
     <groupId>eu.europeana.corelib</groupId>
     <artifactId>corelib-web</artifactId>
     <name>Europeana Core Library Web Functionality</name>
-    <url>http://www.europeanalabs.eu</url>
+    <url>https://www.europeana.eu/</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

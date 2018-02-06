@@ -36,7 +36,7 @@ The workaround is to add a mirror to your Maven settings.xml:
 ```
 <mirror>
       <id>sonatype-mirror</id>
-      <url>http://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
+      <url>https://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
       <mirrorOf>sonatype-nexus-snapshots</mirrorOf>
 </mirror>
 ```

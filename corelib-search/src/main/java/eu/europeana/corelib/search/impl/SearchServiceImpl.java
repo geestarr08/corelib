@@ -112,8 +112,16 @@ public class SearchServiceImpl implements SearchService {
      */
     private static final List<String> SPELL_FIELDS = Arrays.asList("who",
             "what", "where", "when", "title");
-    private final static String RESOLVE_PREFIX = "http://www.europeana.eu/resolve/record";
-    private final static String PORTAL_PREFIX = "http://www.europeana.eu/portal/record";
+
+    private static String PORTALSERVER;
+
+    @Value("${portal.server}")
+    private void setPortalServer(String ps){
+        PORTALSERVER = ps;
+    }
+
+    private final static String RESOLVE_PREFIX = PORTALSERVER + "resolve/record";
+    private final static String PORTAL_PREFIX = PORTALSERVER + "portal/record";
     private static final HashFunction hf = Hashing.md5();
     protected static Logger log = Logger.getLogger(SearchServiceImpl.class);
 
@@ -123,6 +131,7 @@ public class SearchServiceImpl implements SearchService {
     protected EuropeanaIdMongoServer idServer;
     @Resource(name = "corelib_solr_neo4jServer")
     protected Neo4jServer neo4jServer;
+
     // provided by setter
     private SolrServer solrServer;
     @Value("#{europeanaProperties['solr.facetLimit']}")
@@ -133,8 +142,10 @@ public class SearchServiceImpl implements SearchService {
     private String password;
     @Value("#{europeanaProperties['solr.searchLimit']}")
     private int searchLimit;
+
     @Deprecated
     private String mltFields;
+
     private boolean debug = false;
 
     @SuppressWarnings("unchecked")

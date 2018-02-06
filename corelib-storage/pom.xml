@@ -19,7 +19,7 @@
     <groupId>eu.europeana.corelib</groupId>
     <artifactId>corelib-storage</artifactId>
     <name>Europeana Core Library Storage (Solr/Mongo functionality)</name>
-    <url>http://www.europeanalabs.eu</url>
+    <url>https://www.europeana.eu/</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

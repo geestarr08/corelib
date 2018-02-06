@@ -16,9 +16,9 @@
 	<packaging>pom</packaging>
 	<version>2.6.7-SNAPSHOT</version>
 	<name>Europeana Core Library</name>
-	<url>http://www.europeana.eu</url>
+	<url>https://www.europeana.eu/</url>
 	<organization>
-		<url>http://www.europeana.eu</url>
+		<url>https://www.europeana.eu/</url>
 		<name>Europeana Foundation</name>
 	</organization>
 
