@@ -93,7 +93,7 @@ public class EuropeanaAggregationFieldInputTest {
                          solrDocument.getFieldValue(EdmLabel.EUROPEANA_AGGREGATION_DC_CREATOR.toString()));
             assertEquals(eAggregation.getIsShownBy().getResource(),
                          solrDocument.getFieldValue(EdmLabel.EUROPEANA_AGGREGATION_EDM_ISSHOWNBY.toString()));
-            assertEquals("http://www.europeana.eu/portal/recordtest aggregatedCHO.html",
+            assertEquals("https://www.europeana.eu/portal/recordtest aggregatedCHO.html",
                          solrDocument.getFieldValue(EdmLabel.EUROPEANA_AGGREGATION_EDM_LANDINGPAGE.toString()));
             assertEquals(eAggregation.getLanguage().getLanguage().xmlValue(),
                          solrDocument.getFieldValue(EdmLabel.EUROPEANA_AGGREGATION_EDM_LANGUAGE.toString()));
@@ -139,7 +139,7 @@ public class EuropeanaAggregationFieldInputTest {
             assertEquals(aggregation.getCreator().getResource().getResource(),
                          aggregationMongo.getDcCreator().values().iterator().next().get(0));
             assertEquals(aggregation.getIsShownBy().getResource(), aggregationMongo.getEdmIsShownBy());
-            assertEquals("http://europeana.eu/portal/record/.html", aggregationMongo.getEdmLandingPage());
+            assertEquals("https://www.europeana.eu/portal/record/.html", aggregationMongo.getEdmLandingPage());
             assertEquals(aggregation.getLanguage().getLanguage().xmlValue(),
                          aggregationMongo.getEdmLanguage().values().iterator().next().get(0));
             assertEquals(aggregation.getRights().getResource(),

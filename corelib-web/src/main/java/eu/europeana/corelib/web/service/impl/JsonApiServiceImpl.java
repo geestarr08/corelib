@@ -18,9 +18,9 @@ import java.util.List;
 
 public class JsonApiServiceImpl implements JsonApiService {
 
-	@Value("#{europeanaProperties['portal.server']}")
-	private static String PORTALSERVER;
-	private static final String USER_AGENT = "Europeana API-bot/2.0 (Europeana; " + PORTALSERVER + "; api@europeana.eu)";
+	@Value("#{europeanaProperties['portal.url']}")
+	private static String PORTALURL;
+	private static final String USER_AGENT = "Europeana API-bot/2.0 (Europeana; " + PORTALURL + "; api@europeana.eu)";
 	private static final Logger LOG = LogManager.getLogger(JsonApiServiceImpl.class);
 
 	private String lastUrl;

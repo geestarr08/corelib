@@ -14,14 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EuropeanaAggregationUpdater implements	Updater<EuropeanaAggregationImpl> {
-	private static String PORTALSERVER;
+	private static String PORTALURL;
 
-	@Value("#{europeanaProperties['portal.server']}")
-	private void setPortalServer(String ps){
-		PORTALSERVER = ps;
+	@Value("#{europeanaProperties['portal.url']}")
+	private void setPortalUrl(String ps){
+		PORTALURL = ps;
 	}
 
-	private static final String PORTAL_PREFIX = PORTALSERVER + "portal/record/";
+	private static final String PORTAL_PREFIX = PORTALURL + "portal/record/";
     private static final String PORTAL_SUFFIX = ".html";
 
 	@Override

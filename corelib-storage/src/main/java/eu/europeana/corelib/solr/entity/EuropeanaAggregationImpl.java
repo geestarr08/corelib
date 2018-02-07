@@ -3,13 +3,13 @@ package eu.europeana.corelib.solr.entity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
+import eu.europeana.corelib.edm.utils.HardcodedProperties;
 import eu.europeana.corelib.utils.StringArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Reference;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 
 import java.util.List;
@@ -23,8 +23,9 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 @PropertySource("classpath:europeana.properties")
 public class EuropeanaAggregationImpl extends AbstractEdmEntityImpl implements EuropeanaAggregation {
 
-    @Value("#{europeanaProperties['portal.server']}")
-    private String PORTALSERVER;
+
+
+    private HardcodedProperties propertyReader = new HardcodedProperties();
 
     @Reference
     private List<WebResource> webResources;
@@ -76,7 +77,7 @@ public class EuropeanaAggregationImpl extends AbstractEdmEntityImpl implements E
         if (tempUrl == null) {
             tempUrl = StringUtils.substringAfter(this.about, "/aggregation/europeana/");
         }
-        String finalUrl = PORTALSERVER + "portal/record/" + tempUrl + ".html";
+        String finalUrl = HardcodedProperties.PORTALURL + "portal/record/" + tempUrl + ".html";
         return finalUrl;
     }
 

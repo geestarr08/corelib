@@ -3,22 +3,16 @@ package eu.europeana.corelib.web.service.impl;
 import eu.europeana.corelib.definitions.ApplicationContextContainer;
 import eu.europeana.corelib.definitions.model.ThumbSize;
 import eu.europeana.corelib.definitions.solr.DocType;
+import eu.europeana.corelib.utils.Configuration;
 import eu.europeana.corelib.utils.EuropeanaUriUtils;
 import eu.europeana.corelib.web.service.EuropeanaUrlService;
-import eu.europeana.corelib.web.support.Configuration;
 import eu.europeana.corelib.web.utils.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 
 public class EuropeanaUrlServiceImpl implements EuropeanaUrlService {
-
-
-	// HARDCODED URLS
-	@Value("#{europeanaProperties['portal.server']}")
-	private static String PORTALSERVER;
 
 	// GENERAL PATHS
 	String PATH_RECORD 			= "record";
@@ -53,7 +47,7 @@ public class EuropeanaUrlServiceImpl implements EuropeanaUrlService {
 
 	@Override
 	public UrlBuilder getApi2Redirect(String apikey, String shownAt, String provider, String europeanaId, String profile) {
-		UrlBuilder url = new UrlBuilder(configuration.getApi2url());
+		UrlBuilder url = new UrlBuilder(configuration.getApi2Url());
 		url.addPath(String.valueOf(apikey), PATH_API_REDIRECT).disableTrailingSlash();
 		url.addParam("shownAt", shownAt);
 		url.addParam("provider", provider);
@@ -74,7 +68,7 @@ public class EuropeanaUrlServiceImpl implements EuropeanaUrlService {
 
 	@Override
 	public String getPortalResolve(String europeanaId) {
-		UrlBuilder url = new UrlBuilder(PORTALSERVER);
+		UrlBuilder url = new UrlBuilder(configuration.getPortalUrl());
 		url.addPath(PATH_PORTAL_RESOLVE, PATH_RECORD, europeanaId).disableTrailingSlash();
 		return url.toString();
 	}
@@ -88,7 +82,7 @@ public class EuropeanaUrlServiceImpl implements EuropeanaUrlService {
 
 	@Override
 	public UrlBuilder getPortalHome(boolean relative) {
-		return relative ? new UrlBuilder("") : new UrlBuilder(configuration.getPortalServer());
+		return relative ? new UrlBuilder("") : new UrlBuilder(configuration.getPortalUrl());
 	}
 
 	// NOTE everything below is deprecated: either not used, only in this class (where the calling method is also
@@ -98,7 +92,7 @@ public class EuropeanaUrlServiceImpl implements EuropeanaUrlService {
 	@Deprecated
 	@Override
 	public UrlBuilder getApi1Home(String apikey) {
-		UrlBuilder url = new UrlBuilder(configuration.getApi2url());
+		UrlBuilder url = new UrlBuilder(configuration.getApi2Url());
 		url.addPath(PATH_API_V1);
 		url.addParam(PARAM_API_APIKEY, apikey, true);
 		return url;
@@ -107,7 +101,7 @@ public class EuropeanaUrlServiceImpl implements EuropeanaUrlService {
 	@Deprecated
 	@Override
 	public UrlBuilder getApi2Home(String apikey) {
-		UrlBuilder url = new UrlBuilder(configuration.getApi2url());
+		UrlBuilder url = new UrlBuilder(configuration.getApi2Url());
 		url.addPath(PATH_API_V2);
 		url.addParam(PARAM_API_APIKEY, apikey, true);
 		return url;
@@ -166,7 +160,7 @@ public class EuropeanaUrlServiceImpl implements EuropeanaUrlService {
 	@Deprecated
 	@Override
 	public String getPortalResolve(String collectionid, String objectid) {
-		UrlBuilder url = new UrlBuilder(PORTALSERVER);
+		UrlBuilder url = new UrlBuilder(configuration.getPortalUrl());
 		url.addPath(PATH_PORTAL_RESOLVE, PATH_RECORD, collectionid, objectid).disableTrailingSlash();
 		return url.toString();
 	}
@@ -205,7 +199,7 @@ public class EuropeanaUrlServiceImpl implements EuropeanaUrlService {
 	@Deprecated
 	@Override
 	public UrlBuilder getCanonicalPortalRecord(String europeanaId) {
-		UrlBuilder url = new UrlBuilder(PORTALSERVER);
+		UrlBuilder url = new UrlBuilder(configuration.getPortalUrl());
 		url.addPath(PATH_RECORD).addPage(europeanaId + EXT_HTML);
 		return url;
 	}

@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import eu.europeana.corelib.definitions.ApplicationContextContainer;
 import eu.europeana.corelib.web.model.ApiResult;
 import eu.europeana.corelib.web.service.MicrosoftTranslatorService;
-import eu.europeana.corelib.web.support.Configuration;
+import eu.europeana.corelib.utils.Configuration;
 import eu.europeana.corelib.web.utils.UrlBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

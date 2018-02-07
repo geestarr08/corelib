@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import eu.europeana.corelib.edm.utils.HardcodedProperties;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
 
@@ -54,15 +55,7 @@ public final class EuropeanaAggregationFieldInput {
      * The prefix of a valid europeana record in the portal
      */
 
-
-    private static String PORTALSERVER;
-
-    @Value("#{europeanaProperties['portal.server']}")
-    private void setPortalServer(String ps){
-        PORTALSERVER = ps;
-    }
-
-    private final static String EUROPEANA_URI = PORTALSERVER + "portal/record";
+    private final static String EUROPEANA_URI = HardcodedProperties.PORTALURL + "portal/record";
 
 //	private final static String EDM_PREVIEW_PREFIX = "http://europeanastatic.eu/api/image?uri=";
 //	private final static String EDM_PREVIEW_SUFFIX = "&size=LARGE&type=";

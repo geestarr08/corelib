@@ -25,6 +25,9 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 
+	<!-- USING OTHER MODULES -->
+	<import resource="corelib-utils-context.xml" />
+
 	<bean id="europeanaProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean" 
 		p:ignoreResourceNotFound="true">
 		<property name="locations">

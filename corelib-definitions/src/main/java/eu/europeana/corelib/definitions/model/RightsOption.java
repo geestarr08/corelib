@@ -18,7 +18,6 @@
 package eu.europeana.corelib.definitions.model;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 
 /**
  * Class represents a set of rights that can be attached to an item in the Europeana website.
@@ -35,13 +34,13 @@ public enum RightsOption {
      * open
      * https://creativecommons.org/publicdomain/mark/1.0/
      */
-    CC_NOC(BaseUrls.CC + "publicdomain/mark/1.0/", "Public Domain marked", "icon-pd", true),
+    CC_NOC(BaseUrls.CC + "publicdomain/mark/", "Public Domain marked", "icon-pd", true),
 
     /**
      * open
      * https://creativecommons.org/publicdomain/zero
      */
-    CC_ZERO(BaseUrls.CC + "publicdomain/zero/1.0/", "CC0", "icon-cczero", true),
+    CC_ZERO(BaseUrls.CC + "publicdomain/zero", "CC0", "icon-cczero", true),
 
     /**
      * open
@@ -132,7 +131,7 @@ public enum RightsOption {
      * permission
      * https://www.europeana.eu/rights/unknown/
      */
-    EU_U(BaseUrls.EU + "unknown", "Unknown copyright status", "icon-unknown", false, true),
+    EU_U(BaseUrls.EU + "unknown/", "Unknown copyright status", "icon-unknown", false, true),
 
     /**
      * permission
@@ -158,15 +157,10 @@ public enum RightsOption {
      */
     RS_CNE(BaseUrls.RS + "CNE/1.0/", "Copyright not evaluated", "", true);
 
+
     private static class BaseUrls{
-        private static String PORTALSERVER;
 
-        @Value("#{europeanaProperties['portal.server']}")
-        private void setPortalServer(String ps){
-            PORTALSERVER = ps;
-        }
-
-        private static final String EU = PORTALSERVER + "rights/";
+        private static final String EU = "https://www.europeana.eu/rights/";
         private static final String CC = "https://creativecommons.org/";
         private static final String RS = "http://rightsstatements.org/vocab/";
     }

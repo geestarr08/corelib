@@ -1,26 +1,28 @@
-package eu.europeana.corelib.web.support;
+package eu.europeana.corelib.utils;
 
+import org.springframework.beans.factory.annotation.Value;
+
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Value;
 
 public class Configuration {
 
 	@Resource
 	private Properties europeanaProperties;
 
-	@Value("#{europeanaProperties['portal.server']}")
-	private String portalServer;
+	@Value("#{europeanaProperties['portal.url']}")
+	private String portalUrl;
+
+	@Value("#{europeanaProperties['testportal.url']}")
+	private String testPortalUrl;
 
 	@Value("#{europeanaProperties['imageCacheUrl']}")
 	private String imageCacheUrl;
 
 	@Value("#{europeanaProperties['api2.url']}")
-	private String api2url;
+	private String api2Url;
 
 	@Value("#{europeanaProperties['api.rowLimit']}")
 	private int apiRowLimit;
@@ -32,12 +34,16 @@ public class Configuration {
 	// Google Field Trip channel attributes
 	private Map<String, String> gftChannelAttributes;
 
-	public String getPortalServer() {
-		return portalServer;
+	public String getPortalUrl() {
+		return portalUrl;
 	}
 
-	public String getApi2url() {
-		return api2url;
+	public String getTestPortalUrl() {
+		return testPortalUrl;
+	}
+
+	public String getApi2Url() {
+		return api2Url;
 	}
 
 	public String getImageCacheUrl() {

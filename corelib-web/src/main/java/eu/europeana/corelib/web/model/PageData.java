@@ -21,13 +21,8 @@
 
 package eu.europeana.corelib.web.model;
 
-import java.util.Locale;
-
-import org.apache.commons.lang.StringUtils;
-
 import eu.europeana.corelib.definitions.db.entity.relational.User;
-import eu.europeana.corelib.web.exception.InvalidUrlException;
-import eu.europeana.corelib.web.utils.UrlBuilder;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Willem-Jan Boogerd <www.eledge.net/contact>
@@ -40,7 +35,7 @@ public abstract class PageData {
 
 	private User user;
 
-	private String portalServer;
+	private String portalUrl;
 
 	private String bingTranslateId;
 
@@ -52,16 +47,16 @@ public abstract class PageData {
 		return user;
 	}
 
-	public void setPortalServer(String portalServer) {
-		this.portalServer = portalServer;
+	public void setPortalUrl(String portalUrl) {
+		this.portalUrl = portalUrl;
 	}
 
-	public String getPortalServer() {
-		return portalServer;
+	public String getPortalUrl() {
+		return portalUrl;
 	}
 
-	public String getPortalServerSlashless() {
-		return StringUtils.stripEnd(portalServer, "/");
+	public String getPortalUrlSlashless() {
+		return StringUtils.stripEnd(portalUrl, "/");
 	}
 
 	public String getBingTranslateId() {

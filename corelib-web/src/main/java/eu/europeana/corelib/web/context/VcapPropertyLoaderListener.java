@@ -90,7 +90,7 @@ public class VcapPropertyLoaderListener extends VcapApplicationListener {
      */
     private static final String API2URL = "api2_url";
     private static final String API2CANONICALURL = "api2_canonical_url";
-    private static final String PORTALSERVER = "portal_server";
+    private static final String PORTALURL = "portal_url";
     private static final String PORTALCANONICALURL = "portal_server_canonical";
     private static final String POSTGRES = "postgres";
 
@@ -159,7 +159,7 @@ public class VcapPropertyLoaderListener extends VcapApplicationListener {
             setHTTPProperty(props, API2URL);
             setHTTPProperty(props, API2CANONICALURL);
             setHTTPProperty(props, PORTALCANONICALURL);
-            setHTTPProperty(props, PORTALSERVER);
+            setHTTPProperty(props, PORTALURL);
 
             // Write the Properties into the europeana.properties
             // Using the built-in store() method escapes certain characters (e.g. '=' and ':'), which is

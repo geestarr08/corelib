@@ -113,15 +113,15 @@ public class SearchServiceImpl implements SearchService {
     private static final List<String> SPELL_FIELDS = Arrays.asList("who",
             "what", "where", "when", "title");
 
-    private static String PORTALSERVER;
+    private static String PORTALURL;
 
     @Value("${portal.server}")
-    private void setPortalServer(String ps){
-        PORTALSERVER = ps;
+    private void setPortalUrl(String ps){
+        PORTALURL = ps;
     }
 
-    private final static String RESOLVE_PREFIX = PORTALSERVER + "resolve/record";
-    private final static String PORTAL_PREFIX = PORTALSERVER + "portal/record";
+    private final static String RESOLVE_PREFIX = PORTALURL + "resolve/record";
+    private final static String PORTAL_PREFIX = PORTALURL + "portal/record";
     private static final HashFunction hf = Hashing.md5();
     protected static Logger log = Logger.getLogger(SearchServiceImpl.class);
 

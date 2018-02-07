@@ -38,8 +38,8 @@ import java.util.regex.Pattern;
  */
 public class AttributionSnippet {
 
-    @Value("#{europeanaProperties['portal.server']}")
-    private static String PORTALSERVER;
+    @Value("#{europeanaProperties['portal.url']}")
+    private static String PORTALURL;
 
     private String textSnippet = "";
     private String htmlSnippet = "";
@@ -126,8 +126,8 @@ public class AttributionSnippet {
     }
 
     private void assembleHtmlSnippet(){
-        String rightsPage = "xhv:license " + PORTALSERVER + "schemas/edm/rights";
-        String resPdUsgGd = PORTALSERVER + "rights/pd-usage-guide/";
+        String rightsPage = "xhv:license " + PORTALURL + "schemas/edm/rights";
+        String resPdUsgGd = PORTALURL + "rights/pd-usage-guide/";
         String span = "</span>";
         if (titleMap.size() > 0){
             if (StringUtils.isNotBlank(landingPage)) {

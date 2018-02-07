@@ -7,8 +7,9 @@ import java.io.UnsupportedEncodingException;
 
 public interface EuropeanaUrlService {
 
-	// HARDCODED URLS
-	String URL_EUROPEANA 		= "http://www.europeana.eu";
+	// I give up tidying up this godforsaken mess that surfaces when trying to fix it. It's not worth it.
+	// TODO deprecate Corelib
+	String URL_EUROPEANA 		= "https://www.europeana.eu";
 
 	// ENCODING
 //	String ENC_UTF8 			= "UTF-8";

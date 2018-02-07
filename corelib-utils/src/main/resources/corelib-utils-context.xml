@@ -34,6 +34,9 @@
 		<!--<constructor-arg value="#{europeanaProperties['portal.mlt.stopwords']}"/>-->
 	<!--</bean>-->
 
+	<!-- CONFIGURATION -->
+	<bean id="europeana_configuration" class="eu.europeana.corelib.utils.Configuration" />
+
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
 		<property name="cacheManager" ref="ehcache"/>
 	</bean>
