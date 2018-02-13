@@ -51,6 +51,12 @@
         </dependency>
 
         <!-- SOLR -->
+        <!-- We have to use a newer Zookeeper version than the one that comes with Solr because we want socks proxy support -->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>${version.apacheZookeeper}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-solrj</artifactId>

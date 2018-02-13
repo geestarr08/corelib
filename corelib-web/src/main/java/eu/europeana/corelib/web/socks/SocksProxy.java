@@ -55,6 +55,10 @@ public class SocksProxy extends Authenticator{
     public void init() {
         System.setProperty("socksProxyHost", this.host);
         System.setProperty("socksProxyPort", this.port);
+        // Since Zookeeper uses Java NIO by default and that does't support Socks proxy, we import a newer Zookeeper
+        // version that has a Netty-based ClientCnxnSocket class. The line below tells Zookeeper to use that one instead
+        System.setProperty("zookeeper.clientCnxnSocket", "org.apache.zookeeper.ClientCnxnSocketNetty");
+
         if (StringUtils.isNotEmpty(this.user)) {
             System.setProperty("java.net.socks.username", this.user);
             System.setProperty("java.net.socks.password", this.password);

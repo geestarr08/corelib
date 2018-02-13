@@ -31,6 +31,7 @@
 	<properties>
 		<javadoc.opts>-Xdoclint:none</javadoc.opts>
 		<log4j2.version>2.9.1</log4j2.version>
+		<version.apacheZookeeper>3.5.3-beta</version.apacheZookeeper>
 	</properties>
 
 	<modules>
