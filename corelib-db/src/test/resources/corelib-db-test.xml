@@ -42,10 +42,14 @@
         <constructor-arg value="eu.europeana.corelib.search.SearchService" />
     </bean>
 
+    <bean id="corelib_web_mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"
+          p:host="localhost"
+          p:port="2500"
+    />
+
     <bean id="corelib_web_emailService" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="eu.europeana.corelib.web.service.EmailService"/>
     </bean>
-
     <bean id="corelib_solr_mongoServer" class="eu.europeana.corelib.EmptyBean"/>
     <bean id="corelib_solr_mongoServer_id" class="eu.europeana.corelib.EmptyBean"/>
     <bean id="corelib_solr_mongoServer_metainfo" class="eu.europeana.corelib.EmptyBean"/>
