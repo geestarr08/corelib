@@ -17,18 +17,16 @@
 
 package eu.europeana.corelib.db.entity.relational;
 
-import java.util.Date;
+import eu.europeana.corelib.definitions.db.entity.RelationalDatabase;
+import eu.europeana.corelib.definitions.db.entity.relational.Token;
+import eu.europeana.corelib.definitions.db.entity.relational.abstracts.IdentifiedEntity;
+import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.apache.commons.lang.StringUtils;
-
-import eu.europeana.corelib.definitions.db.entity.RelationalDatabase;
-import eu.europeana.corelib.definitions.db.entity.relational.Token;
-import eu.europeana.corelib.definitions.db.entity.relational.abstracts.IdentifiedEntity;
+import java.util.Date;
 
 /**
  * Token table contains three columns:
@@ -36,7 +34,7 @@ import eu.europeana.corelib.definitions.db.entity.relational.abstracts.Identifie
  * - email: an email address
  * - created: when the token created.
  * 
- * When a user is registered an email is sent out (EmailServiceImpl.sendToken()) and he/she should clikc the URL:
+ * When a user is registered an email is sent out (EmailService.sendToken()) and he/she should clikc the URL:
  *   ${url}?token=${token}
  * 
  * @author Willem-Jan Boogerd <www.eledge.net/contact>

@@ -33,7 +33,7 @@
 
 	<!-- deprecated
 	<bean id="corelib_web_contentReuseFrameworkService" 
-		class="eu.europeana.corelib.web.service.impl.ContentReuseFrameworkServiceImpl" /> -->
+		class="eu.europeana.corelib.web.service.ContentReuseFrameworkService" /> -->
 
 	<bean id="corelib_web_S3ObjectStorageClient" class="eu.europeana.features.S3ObjectStorageClient">
 		<constructor-arg value="#{europeanaProperties['contentreuse.s3.key']}"/>

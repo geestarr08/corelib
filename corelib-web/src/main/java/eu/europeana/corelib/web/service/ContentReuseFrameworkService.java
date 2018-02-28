@@ -1,13 +1,23 @@
 package eu.europeana.corelib.web.service;
 
+import eu.europeana.harvester.client.HarvesterClient;
 import eu.europeana.harvester.domain.SourceDocumentReferenceMetaInfo;
+
+import javax.annotation.Resource;
 
 /**
  * @deprecated
  * CRF is not accessed directly by API and Metis
  */
 @Deprecated
-public interface ContentReuseFrameworkService {
+public class ContentReuseFrameworkService {
 
-	SourceDocumentReferenceMetaInfo getMetadata(String recordId);
+	@Resource
+	private HarvesterClient harvesterClient;
+
+	public ContentReuseFrameworkService() {}
+
+	public SourceDocumentReferenceMetaInfo getMetadata(String url) {
+		return harvesterClient.retrieveMetaInfoByUrl(url);
+	}
 }

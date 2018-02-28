@@ -16,13 +16,10 @@
  */
 package eu.europeana.corelib.edm.server.importer.util;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import eu.europeana.corelib.edm.utils.HardcodedProperties;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
 
@@ -42,7 +39,7 @@ import eu.europeana.corelib.edm.utils.MongoUtils;
 import eu.europeana.corelib.edm.utils.SolrUtils;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
-import org.springframework.beans.factory.annotation.Value;
+import eu.europeana.corelib.util.PropertyReader;
 
 /**
  * Constructor of a Europeana Aggregation
@@ -55,10 +52,7 @@ public final class EuropeanaAggregationFieldInput {
      * The prefix of a valid europeana record in the portal
      */
 
-    private final static String EUROPEANA_URI = HardcodedProperties.PORTALURL + "portal/record";
-
-//	private final static String EDM_PREVIEW_PREFIX = "http://europeanastatic.eu/api/image?uri=";
-//	private final static String EDM_PREVIEW_SUFFIX = "&size=LARGE&type=";
+    private String EUROPEANA_RECORD_URL = PropertyReader.getEuropeanaURL() + "portal/record";
 
     public EuropeanaAggregationFieldInput() {
 
@@ -95,7 +89,7 @@ public final class EuropeanaAggregationFieldInput {
                 aggregation.getIsShownBy() != null ? aggregation.getIsShownBy().getResource() : null);
         solrInputDocument.addField(
                 EdmLabel.EUROPEANA_AGGREGATION_EDM_LANDINGPAGE.toString(),
-                EUROPEANA_URI + aggregation.getAggregatedCHO().getResource() + ".html");
+                EUROPEANA_RECORD_URL + aggregation.getAggregatedCHO().getResource() + ".html");
 
         solrInputDocument = SolrUtils.addFieldFromEnum(
                 solrInputDocument, aggregation.getLanguage().getLanguage().xmlValue(), EdmLabel.EUROPEANA_AGGREGATION_EDM_LANGUAGE);
@@ -222,8 +216,8 @@ public final class EuropeanaAggregationFieldInput {
         }
         String landingPage = SolrUtils.exists(LandingPage.class, aggregation.getLandingPage()).getResource();
 
-        mongoAggregation.setEdmLandingPage(EUROPEANA_URI + aggregation.getAggregatedCHO().getResource() + ".html");
-        ops.set("edmLandingPage", EUROPEANA_URI + aggregation.getAggregatedCHO().getResource() + ".html");
+        mongoAggregation.setEdmLandingPage(EUROPEANA_RECORD_URL + aggregation.getAggregatedCHO().getResource() + ".html");
+        ops.set("edmLandingPage", EUROPEANA_RECORD_URL + aggregation.getAggregatedCHO().getResource() + ".html");
 
         Map<String, List<String>> language = MongoUtils.createLiteralMapFromString(
                 aggregation.getLanguage().getLanguage().xmlValue().toLowerCase());
@@ -258,12 +252,12 @@ public final class EuropeanaAggregationFieldInput {
         // mongoAggregation.setEdmPreview(preview);
         // ops.set("edmPreview", preview);
         // } else {
-        // mongoAggregation.setEdmPreview(EUROPEANA_URI + agCHO
+        // mongoAggregation.setEdmPreview(EUROPEANA_RECORD_URL + agCHO
         // + "&size=BRIEF_DOC");
-        // ops.set("edmPreview", EUROPEANA_URI + agCHO + "&size=BRIEF_DOC");
+        // ops.set("edmPreview", EUROPEANA_RECORD_URL + agCHO + "&size=BRIEF_DOC");
         // }
 //		if (previewUrl != null) {
-//			String preview = EuropeanaUrlServiceImpl
+//			String preview = EuropeanaUrlService
 //					.getBeanInstance().getThumbnailUrl(previewUrl, type);
 //			mongoAggregation.setEdmPreview(preview);
 //			ops.set("edmPreview", preview);
@@ -326,7 +320,7 @@ public final class EuropeanaAggregationFieldInput {
      * Create a EuropeanaAggregation to save in MongoDB storage
      *
      * @param aggregation The RDF EuropeanaAggregation representation
-     * @param mongoServer The MongoServer to use to save the EuropeanaAggregation
+     * @param previewUrl  tbd
      * @return the EuropeanaAggregation created
      * @throws InstantiationException
      * @throws IllegalAccessException
@@ -347,7 +341,7 @@ public final class EuropeanaAggregationFieldInput {
 
         String isShownBy = SolrUtils.exists(IsShownBy.class, aggregation.getIsShownBy()).getResource();
         mongoAggregation.setEdmIsShownBy(isShownBy);
-        mongoAggregation.setEdmLandingPage(EUROPEANA_URI + aggregation.getAggregatedCHO().getResource() + ".html");
+        mongoAggregation.setEdmLandingPage(EUROPEANA_RECORD_URL + aggregation.getAggregatedCHO().getResource() + ".html");
 
         Map<String, List<String>> language = MongoUtils.createLiteralMapFromString(
                 aggregation.getLanguage().getLanguage().xmlValue().toLowerCase());
@@ -372,12 +366,12 @@ public final class EuropeanaAggregationFieldInput {
         // mongoAggregation.setEdmPreview(preview);
         // ops.set("edmPreview", preview);
         // } else {
-        // mongoAggregation.setEdmPreview(EUROPEANA_URI + agCHO
+        // mongoAggregation.setEdmPreview(EUROPEANA_RECORD_URL + agCHO
         // + "&size=BRIEF_DOC");
-        // ops.set("edmPreview", EUROPEANA_URI + agCHO + "&size=BRIEF_DOC");
+        // ops.set("edmPreview", EUROPEANA_RECORD_URL + agCHO + "&size=BRIEF_DOC");
         // }
 //		if (previewUrl != null) {
-//			String preview = EuropeanaUrlServiceImpl
+//			String preview = EuropeanaUrlService
 //					.getBeanInstance().getThumbnailUrl(previewUrl, type);
 //			mongoAggregation.setEdmPreview(preview);
 //			ops.set("edmPreview", preview);

@@ -3,7 +3,7 @@ package eu.europeana.corelib.solr.entity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
-import eu.europeana.corelib.edm.utils.HardcodedProperties;
+import eu.europeana.corelib.util.PropertyReader;
 import eu.europeana.corelib.utils.StringArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -20,34 +20,34 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 @JsonSerialize(include = Inclusion.NON_EMPTY)
 @JsonInclude(NON_EMPTY)
 @Entity("EuropeanaAggregation")
-@PropertySource("classpath:europeana.properties")
 public class EuropeanaAggregationImpl extends AbstractEdmEntityImpl implements EuropeanaAggregation {
 
 
 
-    private HardcodedProperties propertyReader = new HardcodedProperties();
+    private String EUROPEANA_URL = PropertyReader.getEuropeanaURL();
 
-    @Reference
-    private List<WebResource> webResources;
 
-    private String                    aggregatedCHO;
-    private String[]                  aggregates;
-    private Map<String, List<String>> dcCreator;
-    private String                    edmLandingPage;
-    private String                    edmIsShownBy;
-    private String[]                  edmHasView;
-    private Map<String, List<String>> edmCountry;
-    private Map<String, List<String>> edmLanguage;
-    private Map<String, List<String>> edmRights;
-    private String edmPreview = "";
+           @Reference
+           private List<WebResource>webResources;
 
-    @Override
-    public String getAggregatedCHO() {
-        return this.aggregatedCHO;
-    }
+           private String                    aggregatedCHO;
+           private String[]aggregates;
+           private Map<String, List<String>>dcCreator;
+           private String                    edmLandingPage;
+           private String                    edmIsShownBy;
+           private String[]edmHasView;
+           private Map<String, List<String>>edmCountry;
+           private Map<String, List<String>>edmLanguage;
+           private Map<String, List<String>>edmRights;
+           private String edmPreview="";
 
-    @Override
-    public void setAggregatedCHO(String aggregatedCHO) {
+           @Override
+           public String getAggregatedCHO(){
+           return this.aggregatedCHO;
+           }
+
+           @Override
+           public void setAggregatedCHO(String aggregatedCHO) {
         this.aggregatedCHO = aggregatedCHO;
     }
 
@@ -77,8 +77,7 @@ public class EuropeanaAggregationImpl extends AbstractEdmEntityImpl implements E
         if (tempUrl == null) {
             tempUrl = StringUtils.substringAfter(this.about, "/aggregation/europeana/");
         }
-        String finalUrl = HardcodedProperties.PORTALURL + "portal/record/" + tempUrl + ".html";
-        return finalUrl;
+        return EUROPEANA_URL + "portal/record/" + tempUrl + ".html";
     }
 
     @Override
@@ -149,7 +148,6 @@ public class EuropeanaAggregationImpl extends AbstractEdmEntityImpl implements E
 
     @Override
     public String getEdmPreview() {
-
         return this.edmPreview;
     }
 

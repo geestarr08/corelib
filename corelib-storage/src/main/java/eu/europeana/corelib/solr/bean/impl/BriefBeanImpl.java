@@ -16,22 +16,20 @@
  */
 package eu.europeana.corelib.solr.bean.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
+import eu.europeana.corelib.definitions.edm.beans.BriefBean;
+import eu.europeana.corelib.definitions.solr.DocType;
 import eu.europeana.corelib.edm.utils.EdmUtils;
+import eu.europeana.corelib.web.service.EuropeanaUrlService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.beans.Field;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
-import eu.europeana.corelib.definitions.edm.beans.BriefBean;
-import eu.europeana.corelib.definitions.solr.DocType;
-import eu.europeana.corelib.solr.bean.impl.IdBeanImpl;
-import eu.europeana.corelib.web.service.impl.EuropeanaUrlServiceImpl;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @see eu.europeana.corelib.definitions.edm.beans.BriefBean
@@ -164,7 +162,7 @@ public class BriefBeanImpl extends IdBeanImpl implements BriefBean {
         if (this.edmObject != null) {
             for (String str : edmObject) {
                 if (StringUtils.isNotBlank(str)) {
-                    previews.add(EuropeanaUrlServiceImpl.getBeanInstance().getThumbnailUrl(str, getType()).toString());
+                    previews.add(EuropeanaUrlService.getBeanInstance().getThumbnailUrl(str, getType()).toString());
                 }
             }
         }

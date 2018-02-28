@@ -17,13 +17,13 @@
 
 package eu.europeana.corelib.utils;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * EuropeanaID creator class
@@ -43,11 +43,9 @@ public class EuropeanaUriUtils {
 	/**
 	 * Create the EuropeanaID from the collection ID and record ID
 	 * 
-	 * @param collectionId
-	 *            The collection ID
-	 * @param recordId
-	 *            The record ID (unique local identifier of a collection record)
-	 * @return The Europeana compatible ID
+	 * @param collectionId The collection ID
+	 * @param recordId     The record ID (unique local identifier of a collection record)
+	 * @return             The Europeana compatible ID
 	 */
 
 	public static String createSanitizedEuropeanaId(String collectionId, String recordId) {
