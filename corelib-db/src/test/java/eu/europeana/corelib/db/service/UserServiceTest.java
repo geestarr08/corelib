@@ -95,7 +95,9 @@ public class UserServiceTest {
         final String PASSWORD = "test";
         final String HASH = hashPassword(PASSWORD);
 
-        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null, null, null, null, null, null, "http://europeana.eu", null);
+        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null,
+                                       null, null, null, null,
+                                       null, "http://europeana.eu", null);
         assertNotNull("Unable to create user", user);
 
         verify(emailServiceMock, times(1)).sendActivationToken((Token) anyObject(), anyString());
@@ -131,7 +133,9 @@ public class UserServiceTest {
         final String PASSWORD = "test";
         final String HASH = hashPassword(PASSWORD);
 
-        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null, null, null, null, null, null, "http://europeana.eu", null);
+        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null,
+                                       null, null, null, null,
+                                       null, "http://europeana.eu", null);
         assertNotNull("Unable to create user", user);
 
         assertEquals("Count doesn't match", 1, userDao.count());
@@ -153,7 +157,9 @@ public class UserServiceTest {
         final String HASH1 = hashPassword(PASSWORD1);
         final String HASH2 = hashPassword(PASSWORD2);
 
-        User user = userService.create(EMAIL, USERNAME, PASSWORD1, null, null, null, null, null, null, null, null, "http://europeana.eu", null);
+        User user = userService.create(EMAIL, USERNAME, PASSWORD1, null, null, null,
+                                       null, null, null, null, null,
+                                       "http://europeana.eu", null);
         assertNotNull("Unable to create user", user);
         assertEquals("Password not correctly encoded.", user.getPassword(), HASH1);
 
@@ -196,7 +202,9 @@ public class UserServiceTest {
         final String USERNAME = "testAuthenticateUser";
         final String PASSWORD = "test";
 
-        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null, null, null, null, null, null, "http://europeana.eu", null);
+        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null,
+                                       null, null, null, null, null,
+                                       "http://europeana.eu", null);
         assertNotNull("Unable to create user", user);
 
         user = userService.authenticateUser(EMAIL, "invalidPassword");
@@ -214,7 +222,9 @@ public class UserServiceTest {
         final String EMAIL = "testCreateSavedSearch@europeana.eu";
         final String USERNAME = "testCreateSavedSearch";
         final String PASSWORD = "test";
-        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null, null, null, null, null, null, "http://europeana.eu", null);
+        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null,
+                                       null, null, null, null, null,
+                                       "http://europeana.eu", null);
         assertNotNull("Unable to create user", user);
         assertTrue("Saved Searches list should be empty!", user.getSavedSearches().size() == 0);
 
@@ -268,7 +278,9 @@ public class UserServiceTest {
         final String EMAIL = "testCreateSavedSearch@europeana.eu";
         final String USERNAME = "testCreateSavedSearch";
         final String PASSWORD = "test";
-        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null, null, null, null, null, null, "http://europeana.eu", null);
+        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null,
+                                       null, null, null, null, null,
+                                       "http://europeana.eu", null);
 
         userService.createSavedSearch(user.getId(), "query1", "queryString1");
 
@@ -289,7 +301,8 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testCreateSavedItem() throws DatabaseException, MongoDBException, MongoRuntimeException, EmailServiceException, Neo4JException {
+    public void testCreateSavedItem() throws DatabaseException, MongoDBException, MongoRuntimeException,
+                                             EmailServiceException, Neo4JException {
         final String EMAIL = "testCreateSavedItem@europeana.eu";
         final String USERNAME = "testCreateSavedItem";
         final String PASSWORD = "test";
@@ -297,7 +310,9 @@ public class UserServiceTest {
 
         setupSeachServiceMock(EUROPEANA_ID);
 
-        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null, null, null, null, null, null, "http://europeana.eu", null);
+        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null,
+                                       null, null, null, null, null,
+                                       "http://europeana.eu", null);
         assertNotNull("Unable to create user", user);
         assertTrue("Saved Items list should be empty!", user.getSavedItems().size() == 0);
 
@@ -326,7 +341,8 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testCreateSocialTag() throws DatabaseException, MongoDBException, MongoRuntimeException, EmailServiceException, Neo4JException {
+    public void testCreateSocialTag() throws DatabaseException, MongoDBException, MongoRuntimeException,
+                                             EmailServiceException, Neo4JException {
         final String EMAIL = "testCreateSocialTag@europeana.eu";
         final String USERNAME = "testCreateSocialTag";
         final String PASSWORD = "test";
@@ -334,7 +350,9 @@ public class UserServiceTest {
         final String TAG = "testCreateSocialTag";
 
         setupSeachServiceMock(EUROPEANA_ID);
-        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null, null, null, null, null, null, "http://europeana.eu", null);
+        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null,
+                                       null, null, null, null, null,
+                                       "http://europeana.eu", null);
         assertNotNull("Unable to create user", user);
         assertTrue("SocialTag list should be empty!", user.getSocialTags().size() == 0);
 
@@ -371,7 +389,9 @@ public class UserServiceTest {
         final String[] LANGCODES_ARRAY = {"nl", "en", "de"};
         final String LANGCODES = "fi|es|it|fr";
 
-        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null, null, null, null, null, null, "http://europeana.eu", null);
+        User user = userService.create(EMAIL, USERNAME, PASSWORD, null, null, null,
+                                       null, null, null, null, null,
+                                       "http://europeana.eu", null);
         assertNotNull("Unable to create user", user);
         assertNull("By default the value should be empty", user.getLanguagePortal());
         assertNull("By default the value should be empty", user.getLanguageItem());
@@ -404,7 +424,8 @@ public class UserServiceTest {
     }
 
     @SuppressWarnings("unchecked")
-    private void setupSeachServiceMock(String europeanaObjectId) throws MongoRuntimeException, MongoDBException, Neo4JException {
+    private void setupSeachServiceMock(String europeanaObjectId) throws MongoRuntimeException, MongoDBException,
+                                                                        Neo4JException {
         FullBean mockBean = mock(FullBean.class);
         Proxy proxy = mock(Proxy.class);
         Aggregation aggregation = mock(Aggregation.class);
