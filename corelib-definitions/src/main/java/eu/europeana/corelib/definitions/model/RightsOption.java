@@ -17,6 +17,7 @@
 
 package eu.europeana.corelib.definitions.model;
 
+import eu.europeana.corelib.utils.StaticPropertyReader;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -26,33 +27,31 @@ import org.apache.commons.lang.StringUtils;
  * @author Luthien
  */
 public enum RightsOption {
-
-
     /* = = = | OPEN LICENCES | = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
     /**
      * open
      * https://creativecommons.org/publicdomain/mark/1.0/
      */
-    CC_NOC(BaseUrls.CC + "publicdomain/mark/", "Public Domain marked", "icon-pd", true),
+    CC_NOC(StaticPropertyReader.getCCUrl() + "publicdomain/mark/", "Public Domain marked", "icon-pd", true),
 
     /**
      * open
      * https://creativecommons.org/publicdomain/zero
      */
-    CC_ZERO(BaseUrls.CC + "publicdomain/zero", "CC0", "icon-cczero", true),
+    CC_ZERO(StaticPropertyReader.getCCUrl() + "publicdomain/zero", "CC0", "icon-cczero", true),
 
     /**
      * open
      * https://creativecommons.org/licenses/by/
      */
-    CC_BY(BaseUrls.CC + "licenses/by/", "CC BY", "icon-cc icon-by",  true),
+    CC_BY(StaticPropertyReader.getCCUrl() + "licenses/by/", "CC BY", "icon-cc icon-by", true),
 
     /**
      * open
      * https://creativecommons.org/licenses/by-sa/
      */
-    CC_BY_SA(BaseUrls.CC + "licenses/by-sa/", "CC BY-SA", "icon-cc icon-by icon-sa", true),
+    CC_BY_SA(StaticPropertyReader.getCCUrl() + "licenses/by-sa/", "CC BY-SA", "icon-cc icon-by icon-sa", true),
 
 
     /* = = = | RESTRICTED LICENCES | = = = = = = = = = = = = = = = = = = = = = = = */
@@ -61,50 +60,50 @@ public enum RightsOption {
      * restricted
      * https://creativecommons.org/licenses/by-nc/
      */
-    CC_BY_NC(BaseUrls.CC + "licenses/by-nc/", "CC BY-NC", "icon-cc icon-by icon-nceu", true),
+    CC_BY_NC(StaticPropertyReader.getCCUrl() + "licenses/by-nc/", "CC BY-NC", "icon-cc icon-by icon-nceu", true),
 
     /**
      * restricted
      * https://creativecommons.org/licenses/by-nc-sa/
      */
-    CC_BY_NC_SA(BaseUrls.CC + "licenses/by-nc-sa/", "CC BY-NC-SA", "icon-cc icon-by icon-nceu icon-sa", true),
+    CC_BY_NC_SA(StaticPropertyReader.getCCUrl() + "licenses/by-nc-sa/", "CC BY-NC-SA", "icon-cc icon-by icon-nceu icon-sa", true),
 
     /**
      * restricted
      * https://creativecommons.org/licenses/by-nc-nd/
      */
-    CC_BY_NC_ND(BaseUrls.CC + "licenses/by-nc-nd/", "CC BY-NC-ND", "icon-cc icon-by icon-nceu icon-nd", true),
+    CC_BY_NC_ND(StaticPropertyReader.getCCUrl() + "licenses/by-nc-nd/", "CC BY-NC-ND", "icon-cc icon-by icon-nceu icon-nd", true),
 
     /**
      * restricted
      * https://creativecommons.org/licenses/by-nd/
      */
-    CC_BY_ND(BaseUrls.CC + "licenses/by-nd/", "CC BY-ND", "icon-cc icon-by icon-nd", true),
+    CC_BY_ND(StaticPropertyReader.getCCUrl() + "licenses/by-nd/", "CC BY-ND", "icon-cc icon-by icon-nd", true),
 
     /**
      * restricted
      * https://www.europeana.eu/rights/out-of-copyright-non-commercial/
      */
-    EU_OOC_NC(BaseUrls.EU + "out-of-copyright-non-commercial/",
+    EU_OOC_NC(StaticPropertyReader.getEURightsUrl() + "out-of-copyright-non-commercial/",
             "Out of copyright - non commercial re-use", "icon-publicdomain icon-nceu", false, true),
 
     /**
      * restricted
      * http://rightsstatements.org/vocab/InC-EDU/1.0/
      */
-    RS_INC_EDU(BaseUrls.RS + "InC-EDU/1.0/", "In copyright - educational user permitted", "", true),
+    RS_INC_EDU(StaticPropertyReader.getRightsstatementUrl() + "InC-EDU/1.0/", "In copyright - educational user permitted", "", true),
 
     /**
      * restricted
      * http://rightsstatements.org/vocab/NoC-NC/1.0/
      */
-    RS_NOC_NC(BaseUrls.RS + "NoC-NC/1.0/", "No copyright - non-commercial use only", "", true),
+    RS_NOC_NC(StaticPropertyReader.getRightsstatementUrl() + "NoC-NC/1.0/", "No copyright - non-commercial use only", "", true),
 
     /**
      * restricted
      * http://rightsstatements.org/vocab/NoC-OKLR/1.0/
      */
-    RS_NOC_OKLR(BaseUrls.RS + "NoC-OKLR/1.0/", "No copyright - other known legal restrictions", "", true),
+    RS_NOC_OKLR(StaticPropertyReader.getRightsstatementUrl() + "NoC-OKLR/1.0/", "No copyright - other known legal restrictions", "", true),
 
 
     /* = = = | PERMISSION LICENCES | = = = = = = = = = = = = = = = = = = = = = = = */
@@ -113,59 +112,49 @@ public enum RightsOption {
      * permission
      * https://www.europeana.eu/rights/rr-f/
      */
-    EU_RR_F(BaseUrls.EU + "rr-f/", "Rights Reserved - Free Access", "icon-copyright", false, true),
+    EU_RR_F(StaticPropertyReader.getEURightsUrl() + "rr-f/", "Rights Reserved - Free Access", "icon-copyright", false, true),
 
     /**
      * permission
      * https://www.europeana.eu/rights/rr-p/
      */
-    EU_RR_P(BaseUrls.EU + "rr-p/", "Rights Reserved - Paid Access", "icon-copyright", false, true),
+    EU_RR_P(StaticPropertyReader.getEURightsUrl() + "rr-p/", "Rights Reserved - Paid Access", "icon-copyright", false, true),
 
     /**
      * permission
      * https://www.europeana.eu/rights/rr-r/
      */
-    EU_RR_R(BaseUrls.EU + "rr-r/", "Restricted Access - Rights Reserved", "icon-copyright", false, true),
+    EU_RR_R(StaticPropertyReader.getEURightsUrl() + "rr-r/", "Restricted Access - Rights Reserved", "icon-copyright", false, true),
 
     /**
      * permission
      * https://www.europeana.eu/rights/unknown/
      */
-    EU_U(BaseUrls.EU + "unknown/", "Unknown copyright status", "icon-unknown", false, true),
+    EU_U(StaticPropertyReader.getEURightsUrl() + "unknown/", "Unknown copyright status", "icon-unknown", false, true),
 
     /**
      * permission
      * https://www.europeana.eu/rights/test-orphan-work-test/
      */
-    EU_ORPHAN(BaseUrls.EU + "test-orphan-work-test/", "Orphan Work", "icon-unknown", false, true),
+    EU_ORPHAN(StaticPropertyReader.getEURightsUrl() + "test-orphan-work-test/", "Orphan Work", "icon-unknown", false, true),
 
     /**
      * permission
      * http://rightsstatements.org/vocab/InC/1.0/
      */
-    RS_INC(BaseUrls.RS + "InC/1.0/", "In Copyright", "", true),
+    RS_INC(StaticPropertyReader.getRightsstatementUrl() + "InC/1.0/", "In Copyright", "", true),
 
     /**
      * permission
      * http://rightsstatements.org/vocab/InC-OW-EU/1.0/
      */
-    RS_INC_OW_EU(BaseUrls.RS + "InC-OW-EU/1.0/", "In copyright - EU orphan work", "", true),
+    RS_INC_OW_EU(StaticPropertyReader.getRightsstatementUrl() + "InC-OW-EU/1.0/", "In copyright - EU orphan work", "", true),
 
     /**
      * permission
      * http://rightsstatements.org/vocab/CNE/1.0/
      */
-    RS_CNE(BaseUrls.RS + "CNE/1.0/", "Copyright not evaluated", "", true);
-
-
-    private static class BaseUrls{
-
-        private static final String EU = "https://www.europeana.eu/rights/";
-        private static final String CC = "https://creativecommons.org/";
-        private static final String RS = "http://rightsstatements.org/vocab/";
-    }
-
-   
+    RS_CNE(StaticPropertyReader.getRightsstatementUrl() + "CNE/1.0/", "Copyright not evaluated", "", true);
 
     private String url = null;
     private String rightsText = null;
@@ -208,7 +197,7 @@ public enum RightsOption {
                 if (!portalUrl.endsWith("/")) {
                     portalUrl += "/";
                 }
-                relativeUrl = url.replace("https://www.europeana.eu/", portalUrl)
+                relativeUrl = url.replace(StaticPropertyReader.getEuropeanaUrl(), portalUrl)
                         .replaceAll("/$", ".html");
             } else {
                 relativeUrl = url;

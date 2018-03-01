@@ -3,14 +3,13 @@ package eu.europeana.corelib.solr.entity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
-import eu.europeana.corelib.util.PropertyReader;
+import eu.europeana.corelib.utils.StaticPropertyReader;
 import eu.europeana.corelib.utils.StringArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Reference;
-import org.springframework.context.annotation.PropertySource;
 
 import java.util.List;
 import java.util.Map;
@@ -22,10 +21,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 @Entity("EuropeanaAggregation")
 public class EuropeanaAggregationImpl extends AbstractEdmEntityImpl implements EuropeanaAggregation {
 
-
-
-    private String EUROPEANA_URL = PropertyReader.getEuropeanaURL();
-
+    private String EUROPEANA_URL = StaticPropertyReader.getEuropeanaUrl();
 
            @Reference
            private List<WebResource>webResources;

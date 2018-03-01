@@ -46,6 +46,18 @@ public class EuropeanaUrlService {
 		return ApplicationContextContainer.getBean(EuropeanaUrlService.class);
 	}
 
+	public String getEURightsUrl(){
+		return configuration.getEURightsUrl();
+	}
+
+	public String getCCUrl(){
+		return configuration.getCCUrl();
+	}
+
+	public String getRightsstatementUrl(){
+		return configuration.getRightsstatementUrl();
+	}
+
 	public UrlBuilder getApi2Redirect(String apikey, String shownAt, String provider, String europeanaId, String profile) {
 		UrlBuilder url = new UrlBuilder(configuration.getApi2Url());
 		url.addPath(String.valueOf(apikey), PATH_API_REDIRECT).disableTrailingSlash();

@@ -39,7 +39,7 @@ import eu.europeana.corelib.edm.utils.MongoUtils;
 import eu.europeana.corelib.edm.utils.SolrUtils;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
-import eu.europeana.corelib.util.PropertyReader;
+import eu.europeana.corelib.utils.StaticPropertyReader;
 
 /**
  * Constructor of a Europeana Aggregation
@@ -52,7 +52,7 @@ public final class EuropeanaAggregationFieldInput {
      * The prefix of a valid europeana record in the portal
      */
 
-    private String EUROPEANA_RECORD_URL = PropertyReader.getEuropeanaURL() + "portal/record";
+    private String EUROPEANA_RECORD_URL = StaticPropertyReader.getEuropeanaUrl() + "portal/record";
 
     public EuropeanaAggregationFieldInput() {
 

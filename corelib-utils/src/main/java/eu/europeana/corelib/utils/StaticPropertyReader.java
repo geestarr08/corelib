@@ -15,7 +15,7 @@
  *  the Licence.
  */
 
-package eu.europeana.corelib.util;
+package eu.europeana.corelib.utils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,17 +23,14 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.Properties;
 
 /**
  * Created by luthien on 27/02/2018.
  */
-public class PropertyReader {
+public class StaticPropertyReader {
 
-    private static final Logger     LOG   = LogManager.getLogger(PropertyReader.class);
+    private static final Logger     LOG   = LogManager.getLogger(StaticPropertyReader.class);
     private static       Properties props = new Properties();
     private static final String PROPERTIESFILENAME = "europeana.properties";
 
@@ -53,8 +50,24 @@ public class PropertyReader {
         }
     }
 
-    public static String getEuropeanaURL(){
+    public static String getEuropeanaUrl(){
         return props.getProperty("portal.url");
+    }
+
+    public static String getEURightsUrl(){
+        return props.getProperty("portal.url") + "rights/";
+    }
+
+    public static String getCCUrl(){
+        return props.getProperty("cc.url");
+    }
+
+    public static String getRightsstatementUrl(){
+        return props.getProperty("rightsstatement.url");
+    }
+
+    public static String getDataUrl(){
+        return props.getProperty("data.url");
     }
 
 

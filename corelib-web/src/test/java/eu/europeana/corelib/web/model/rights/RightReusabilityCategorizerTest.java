@@ -1,5 +1,6 @@
 package eu.europeana.corelib.web.model.rights;
 
+import eu.europeana.corelib.utils.StaticPropertyReader;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +14,13 @@ import static org.junit.Assert.assertTrue;
 
 public class RightReusabilityCategorizerTest {
 
+	private static final String EURightsUrl 			= StaticPropertyReader.getEURightsUrl().replace(":", "\\:")
+			.replace("/", "\\/");
+	private static final String CCRightsUrl 			= StaticPropertyReader.getCCUrl().replace(":", "\\:")
+			.replace("/", "\\/");
+	private static final String RightsstatementUrl 	= StaticPropertyReader.getRightsstatementUrl().replace(":", "\\:")
+			.replace("/", "\\/");
+
 	@Before
 	public void before() {
 		RightReusabilityCategorizer.setPermissionStrategy(RightReusabilityCategorizer.PERMISSION_STRATEGY_NEGATIVE_ALL);
@@ -23,11 +31,10 @@ public class RightReusabilityCategorizerTest {
 	 */
 	@Test
 	public void testGetOpenRightsQuery() {
-		String query = "RIGHTS:(https\\:\\/\\/creativecommons.org\\/publicdomain\\/mark\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/publicdomain\\/zero\\/1.0\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/*)";
-
+		String query = "RIGHTS:(" + CCRightsUrl + "publicdomain\\/mark\\/* " +
+					   "OR " 	  + CCRightsUrl + "publicdomain\\/zero\\/1.0\\/* " +
+					   "OR " 	  + CCRightsUrl + "licenses\\/by\\/* " +
+					   "OR " 	  + CCRightsUrl + "licenses\\/by-sa\\/*)";
 		assertEquals(query, RightReusabilityCategorizer.getOpenRightsQuery());
 	}
 
@@ -36,14 +43,14 @@ public class RightReusabilityCategorizerTest {
 	 */
 	@Test
 	public void testGetRestrictedRightsQuery() {
-		String query = "RIGHTS:(https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-sa\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-nd\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nd\\/* " +
-				"OR https\\:\\/\\/www.europeana.eu\\/rights\\/out-of-copyright-non-commercial\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/InC-EDU\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-NC\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-OKLR\\/1.0\\/*)";
+		String query = "RIGHTS:(" + CCRightsUrl   	   + "licenses\\/by-nc\\/* " +
+					   "OR " 	  + CCRightsUrl 	   + "licenses\\/by-nc-sa\\/* " +
+					   "OR " 	  + CCRightsUrl 	   + "licenses\\/by-nc-nd\\/* " +
+					   "OR " 	  + CCRightsUrl 	   + "licenses\\/by-nd\\/* " +
+					   "OR " 	  + EURightsUrl 	   + "out-of-copyright-non-commercial\\/* " +
+					   "OR " 	  + RightsstatementUrl + "InC-EDU\\/1.0\\/* " +
+					   "OR " 	  + RightsstatementUrl + "NoC-NC\\/1.0\\/* " +
+					   "OR " 	  + RightsstatementUrl + "NoC-OKLR\\/1.0\\/*)";
 
 		assertEquals(query, RightReusabilityCategorizer.getRestrictedRightsQuery());
 	}
@@ -53,19 +60,18 @@ public class RightReusabilityCategorizerTest {
 	 */
 	@Test
 	public void testGetAllRightsQuery() {
-		String query = "RIGHTS:(https\\:\\/\\/creativecommons.org\\/publicdomain\\/mark\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/publicdomain\\/zero\\/1.0\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-sa\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-nd\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nd\\/* " +
-				"OR https\\:\\/\\/www.europeana.eu\\/rights\\/out-of-copyright-non-commercial\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/InC-EDU\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-NC\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-OKLR\\/1.0\\/*)";
-
+		String query = 	"RIGHTS:(" 	+ CCRightsUrl 		 + "publicdomain\\/mark\\/* " +
+						"OR " 		+ CCRightsUrl 		 + "publicdomain\\/zero\\/1.0\\/* " +
+						"OR " 		+ CCRightsUrl 		 + "licenses\\/by\\/* " +
+						"OR " 		+ CCRightsUrl 		 + "licenses\\/by-sa\\/* " +
+						"OR " 		+ CCRightsUrl 		 + "licenses\\/by-nc\\/* " +
+						"OR " 		+ CCRightsUrl 		 + "licenses\\/by-nc-sa\\/* " +
+						"OR " 		+ CCRightsUrl 		 + "licenses\\/by-nc-nd\\/* " +
+						"OR " 		+ CCRightsUrl 		 + "licenses\\/by-nd\\/* " +
+						"OR " 		+ EURightsUrl 		 + "out-of-copyright-non-commercial\\/* " +
+						"OR " 		+ RightsstatementUrl + "InC-EDU\\/1.0\\/* " +
+						"OR " 		+ RightsstatementUrl + "NoC-NC\\/1.0\\/* " +
+						"OR " 		+ RightsstatementUrl + "NoC-OKLR\\/1.0\\/*)";
 		assertEquals(query, RightReusabilityCategorizer.getAllRightsQuery());
 	}
 
@@ -76,52 +82,51 @@ public class RightReusabilityCategorizerTest {
 	public void testGetPermissionRightsQuery() {
 		assertEquals(RightReusabilityCategorizer.getPermissionStrategy(), RightReusabilityCategorizer.PERMISSION_STRATEGY_NEGATIVE_ALL);
 
-		String query = "RIGHTS:(NOT(https\\:\\/\\/creativecommons.org\\/publicdomain\\/mark\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/publicdomain\\/zero\\/1.0\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-sa\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-nd\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nd\\/* " +
-				"OR https\\:\\/\\/www.europeana.eu\\/rights\\/out-of-copyright-non-commercial\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/InC-EDU\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-NC\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-OKLR\\/1.0\\/*))";
+		String query = "RIGHTS:(NOT(" + CCRightsUrl 	   + "publicdomain\\/mark\\/* " +
+								"OR " + CCRightsUrl 	   + "publicdomain\\/zero\\/1.0\\/* " +
+								"OR " + CCRightsUrl 	   + "licenses\\/by\\/* " +
+								"OR " + CCRightsUrl 	   + "licenses\\/by-sa\\/* " +
+								"OR " + CCRightsUrl 	   + "licenses\\/by-nc\\/* " +
+								"OR " + CCRightsUrl 	   + "licenses\\/by-nc-sa\\/* " +
+								"OR " + CCRightsUrl 	   + "licenses\\/by-nc-nd\\/* " +
+								"OR " + CCRightsUrl 	   + "licenses\\/by-nd\\/* " +
+								"OR " + EURightsUrl 	   + "out-of-copyright-non-commercial\\/* " +
+								"OR " + RightsstatementUrl + "InC-EDU\\/1.0\\/* " +
+								"OR " + RightsstatementUrl + "NoC-NC\\/1.0\\/* " +
+								"OR " + RightsstatementUrl + "NoC-OKLR\\/1.0\\/*))";
 
 		RightReusabilityCategorizer.setPermissionStrategy(RightReusabilityCategorizer.PERMISSION_STRATEGY_NEGATIVE_ALL);
 		assertEquals(RightReusabilityCategorizer.getPermissionStrategy(), RightReusabilityCategorizer.PERMISSION_STRATEGY_NEGATIVE_ALL);
 		assertEquals(query, RightReusabilityCategorizer.getPermissionRightsQuery());
 
-		query = "RIGHTS:(NOT(https\\:\\/\\/creativecommons.org\\/publicdomain\\/mark\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/publicdomain\\/zero\\/1.0\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-sa\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-nd\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nd\\/* " +
-				"OR https\\:\\/\\/www.europeana.eu\\/rights\\/out-of-copyright-non-commercial\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/InC-EDU\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-NC\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-OKLR\\/1.0\\/*))";
+		query = "RIGHTS:(NOT(" 	+ CCRightsUrl 		 + "publicdomain\\/mark\\/* " +
+						"OR " 	+ CCRightsUrl 		 + "publicdomain\\/zero\\/1.0\\/* " +
+						"OR " 	+ CCRightsUrl 		 + "licenses\\/by\\/* " +
+						"OR " 	+ CCRightsUrl 		 + "licenses\\/by-sa\\/* " +
+						"OR " 	+ CCRightsUrl 		 + "licenses\\/by-nc\\/* " +
+						"OR " 	+ CCRightsUrl 		 + "licenses\\/by-nc-sa\\/* " +
+						"OR " 	+ CCRightsUrl 		 + "licenses\\/by-nc-nd\\/* " +
+						"OR " 	+ CCRightsUrl 		 + "licenses\\/by-nd\\/* " +
+						"OR " 	+ EURightsUrl 		 + "out-of-copyright-non-commercial\\/* " +
+						"OR " 	+ RightsstatementUrl + "InC-EDU\\/1.0\\/* " +
+						"OR " 	+ RightsstatementUrl + "NoC-NC\\/1.0\\/* " +
+						"OR " 	+ RightsstatementUrl + "NoC-OKLR\\/1.0\\/*))";
 
 		RightReusabilityCategorizer.setPermissionStrategy(RightReusabilityCategorizer.PERMISSION_STRATEGY_NEGATIVE_WITH_RIGHTS);
 		assertEquals(RightReusabilityCategorizer.getPermissionStrategy(), RightReusabilityCategorizer.PERMISSION_STRATEGY_NEGATIVE_WITH_RIGHTS);
 		assertEquals(query, RightReusabilityCategorizer.getPermissionRightsQuery());
 
-		query = "RIGHTS:(https\\:\\/\\/www.europeana.eu\\/rights\\/rr-f\\/* " +
-				"OR https\\:\\/\\/www.europeana.eu\\/rights\\/rr-p\\/* " +
-				"OR https\\:\\/\\/www.europeana.eu\\/rights\\/rr-r\\/* " +
-				"OR https\\:\\/\\/www.europeana.eu\\/rights\\/unknown\\/* " +
-				"OR https\\:\\/\\/www.europeana.eu\\/rights\\/test-orphan-work-test\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/InC\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/InC-OW-EU\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/CNE\\/1.0\\/*)";
+		query = "RIGHTS:(" + EURightsUrl 		+ "rr-f\\/* " +
+					"OR "  + EURightsUrl 		+ "rr-p\\/* " +
+					"OR "  + EURightsUrl 		+ "rr-r\\/* " +
+					"OR "  + EURightsUrl 		+ "unknown\\/* " +
+					"OR "  + EURightsUrl 		+ "test-orphan-work-test\\/* " +
+					"OR "  + RightsstatementUrl + "InC\\/1.0\\/* " +
+					"OR "  + RightsstatementUrl + "InC-OW-EU\\/1.0\\/* " +
+					"OR "  + RightsstatementUrl + "CNE\\/1.0\\/*)";
 
 		RightReusabilityCategorizer.setPermissionStrategy(RightReusabilityCategorizer.PERMISSION_STRATEGY_POSITIVE);
 		assertEquals(query, RightReusabilityCategorizer.getPermissionRightsQuery());
-
 	}
 
 	/**
@@ -129,60 +134,59 @@ public class RightReusabilityCategorizerTest {
 	 */
 	@Test
 	public void testMapValueReplacementsFromApi() {
-		String open = "{!tag=REUSABILITY}RIGHTS:(https\\:\\/\\/creativecommons.org\\/publicdomain\\/mark\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/publicdomain\\/zero\\/1.0\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/*)";
+		String open = "{!tag=REUSABILITY}RIGHTS:(" + CCRightsUrl + "publicdomain\\/mark\\/* " +
+											 "OR " + CCRightsUrl + "publicdomain\\/zero\\/1.0\\/* " +
+											 "OR " + CCRightsUrl + "licenses\\/by\\/* " +
+											 "OR " + CCRightsUrl + "licenses\\/by-sa\\/*)";
 
-		String notOpen = "{!tag=REUSABILITY}RIGHTS:(NOT(https\\:\\/\\/creativecommons.org\\/publicdomain\\/mark\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/publicdomain\\/zero\\/1.0\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/*))";
+		String notOpen = "{!tag=REUSABILITY}RIGHTS:(NOT(" + CCRightsUrl + "publicdomain\\/mark\\/* " +
+													"OR " + CCRightsUrl + "publicdomain\\/zero\\/1.0\\/* " +
+													"OR " + CCRightsUrl + "licenses\\/by\\/* " +
+													"OR " + CCRightsUrl + "licenses\\/by-sa\\/*))";
 
-		String restricted = "{!tag=REUSABILITY}RIGHTS:(https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-sa\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-nd\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nd\\/* " +
-				"OR https\\:\\/\\/www.europeana.eu\\/rights\\/out-of-copyright-non-commercial\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/InC-EDU\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-NC\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-OKLR\\/1.0\\/*)";
+		String restricted = "{!tag=REUSABILITY}RIGHTS:(" + CCRightsUrl 		  + "licenses\\/by-nc\\/* " +
+												   "OR " + CCRightsUrl 		  + "licenses\\/by-nc-sa\\/* " +
+												   "OR " + CCRightsUrl 		  + "licenses\\/by-nc-nd\\/* " +
+												   "OR " + CCRightsUrl 		  + "licenses\\/by-nd\\/* " +
+												   "OR " + EURightsUrl 		  + "out-of-copyright-non-commercial\\/* " +
+												   "OR " + RightsstatementUrl + "InC-EDU\\/1.0\\/* " +
+												   "OR " + RightsstatementUrl + "NoC-NC\\/1.0\\/* " +
+												   "OR " + RightsstatementUrl + "NoC-OKLR\\/1.0\\/*)";
 
-		String notRestricted = "{!tag=REUSABILITY}RIGHTS:(NOT(https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-sa\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-nd\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nd\\/* " +
-				"OR https\\:\\/\\/www.europeana.eu\\/rights\\/out-of-copyright-non-commercial\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/InC-EDU\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-NC\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-OKLR\\/1.0\\/*))";
+		String notRestricted = "{!tag=REUSABILITY}RIGHTS:(NOT(" + CCRightsUrl 		 + "licenses\\/by-nc\\/* " +
+														  "OR " + CCRightsUrl 		 + "licenses\\/by-nc-sa\\/* " +
+														  "OR " + CCRightsUrl 		 + "licenses\\/by-nc-nd\\/* " +
+														  "OR " + CCRightsUrl 		 + "licenses\\/by-nd\\/* " +
+														  "OR " + EURightsUrl 		 + "out-of-copyright-non-commercial\\/* " +
+														  "OR " + RightsstatementUrl + "InC-EDU\\/1.0\\/* " +
+														  "OR " + RightsstatementUrl + "NoC-NC\\/1.0\\/* " +
+														  "OR " + RightsstatementUrl + "NoC-OKLR\\/1.0\\/*))";
 
-		String permission = "{!tag=REUSABILITY}RIGHTS:(NOT(https\\:\\/\\/creativecommons.org\\/publicdomain\\/mark\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/publicdomain\\/zero\\/1.0\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-sa\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-nd\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nd\\/* " +
-				"OR https\\:\\/\\/www.europeana.eu\\/rights\\/out-of-copyright-non-commercial\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/InC-EDU\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-NC\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-OKLR\\/1.0\\/*))";
+		String permission = "{!tag=REUSABILITY}RIGHTS:(NOT(" + CCRightsUrl 		  + "publicdomain\\/mark\\/* " +
+													   "OR " + CCRightsUrl 		  + "publicdomain\\/zero\\/1.0\\/* " +
+													   "OR " + CCRightsUrl 		  + "licenses\\/by\\/* " +
+													   "OR " + CCRightsUrl 		  + "licenses\\/by-sa\\/* " +
+													   "OR " + CCRightsUrl 		  + "licenses\\/by-nc\\/* " +
+													   "OR " + CCRightsUrl 		  + "licenses\\/by-nc-sa\\/* " +
+													   "OR " + CCRightsUrl 		  + "licenses\\/by-nc-nd\\/* " +
+													   "OR " + CCRightsUrl 		  + "licenses\\/by-nd\\/* " +
+													   "OR " + EURightsUrl 		  + "out-of-copyright-non-commercial\\/* " +
+													   "OR " + RightsstatementUrl + "InC-EDU\\/1.0\\/* " +
+													   "OR " + RightsstatementUrl + "NoC-NC\\/1.0\\/* " +
+													   "OR " + RightsstatementUrl + "NoC-OKLR\\/1.0\\/*))";
 
-		String openAndRestricted = "{!tag=REUSABILITY}RIGHTS:(https\\:\\/\\/creativecommons.org\\/publicdomain\\/mark\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/publicdomain\\/zero\\/1.0\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-sa\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nc-nd\\/* " +
-				"OR https\\:\\/\\/creativecommons.org\\/licenses\\/by-nd\\/* " +
-				"OR https\\:\\/\\/www.europeana.eu\\/rights\\/out-of-copyright-non-commercial\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/InC-EDU\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-NC\\/1.0\\/* " +
-				"OR http\\:\\/\\/rightsstatements.org\\/vocab\\/NoC-OKLR\\/1.0\\/*)";
-
+		String openAndRestricted = "{!tag=REUSABILITY}RIGHTS:(" + CCRightsUrl 		 + "publicdomain\\/mark\\/* " +
+														  "OR " + CCRightsUrl 		 + "publicdomain\\/zero\\/1.0\\/* " +
+														  "OR " + CCRightsUrl 		 + "licenses\\/by\\/* " +
+														  "OR " + CCRightsUrl 		 + "licenses\\/by-sa\\/* " +
+														  "OR " + CCRightsUrl 		 + "licenses\\/by-nc\\/* " +
+														  "OR " + CCRightsUrl 		 + "licenses\\/by-nc-sa\\/* " +
+														  "OR " + CCRightsUrl 		 + "licenses\\/by-nc-nd\\/* " +
+														  "OR " + CCRightsUrl 		 + "licenses\\/by-nd\\/* " +
+														  "OR " + EURightsUrl 		 + "out-of-copyright-non-commercial\\/* " +
+														  "OR " + RightsstatementUrl + "InC-EDU\\/1.0\\/* " +
+														  "OR " + RightsstatementUrl + "NoC-NC\\/1.0\\/* " +
+														  "OR " + RightsstatementUrl + "NoC-OKLR\\/1.0\\/*)";
 		String[] reusability;
 		Map<String, String> valueReplacements;
 		Map<String, String> expected;

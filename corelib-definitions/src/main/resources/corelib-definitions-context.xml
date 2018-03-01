@@ -29,7 +29,7 @@
 	<!--<import resource="corelib-utils-context.xml" />-->
 
 	<bean id="europeanaProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean" 
-		p:ignoreResourceNotFound="true">
+		p:ignoreResourceNotFound="false">
 		<property name="locations">
 			<list>
 				<value>classpath:cloud_config.properties</value>

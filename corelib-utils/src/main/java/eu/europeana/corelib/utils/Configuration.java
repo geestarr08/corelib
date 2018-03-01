@@ -27,6 +27,16 @@ public class Configuration {
 	@Value("#{europeanaProperties['api.rowLimit']}")
 	private int apiRowLimit;
 
+	@Value("#{europeanaProperties['data.url']}")
+	private String dataUrl;
+
+	@Value("#{europeanaProperties['cc.url']}")
+	private String ccUrl;
+
+	@Value("#{europeanaProperties['rightsstatement.url']}")
+	private String rightsstatementUrl;
+
+
 	//	TODO consider removing, is ONLY available in europeana-test.properties
 //	@Value("#{europeanaProperties['portal.bing.translate.key']}")
 //	private String bingTranslateId;
@@ -44,6 +54,22 @@ public class Configuration {
 
 	public String getApi2Url() {
 		return api2Url;
+	}
+
+	public String getDataUrl() {
+		return dataUrl;
+	}
+
+	public String getEURightsUrl() {
+		return portalUrl + "rights/";
+	}
+
+	public String getCCUrl() {
+		return ccUrl;
+	}
+
+	public String getRightsstatementUrl() {
+		return rightsstatementUrl;
 	}
 
 	public String getImageCacheUrl() {

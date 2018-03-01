@@ -26,6 +26,7 @@ import eu.europeana.corelib.definitions.model.ColorSpace;
 import eu.europeana.corelib.definitions.model.Orientation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.*;
+import eu.europeana.corelib.utils.StaticPropertyReader;
 import eu.europeana.corelib.utils.StringArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jibx.runtime.BindingDirectory;
@@ -57,9 +58,9 @@ public class EdmUtils {
             .getCanonicalName());
 
     private static IBindingFactory bfact;
-    private static final  String SPACE = " ";
-    private static final  String PREFIX = "https://data.europeana.eu";
-    private static final  String LONGDATATYPE = "http://www.w3.org/2001/XMLSchema#long";
+    private static final String SPACE = " ";
+    private static final String PREFIX = StaticPropertyReader.getDataUrl();
+    private static final String LONGDATATYPE = "http://www.w3.org/2001/XMLSchema#long";
     private static final String HEXBINARYDATATYPE = "http://www.w3.org/2001/XMLSchema#hexBinary";
     private static final String STRINGDATATYPE = "http://www.w3.org/2001/XMLSchema#string";
     private static final String INTEGERDATATYPE = "http://www.w3.org/2001/XMLSchema#integer";
