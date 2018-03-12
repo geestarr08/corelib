@@ -115,7 +115,7 @@ public class SearchServiceImpl implements SearchService {
 
     private static String PORTALURL;
 
-    @Value("${portal.server}")
+    @Value("${portal.url}")
     private void setPortalUrl(String ps){
         PORTALURL = ps;
     }

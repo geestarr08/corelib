@@ -17,7 +17,7 @@
 
 package eu.europeana.corelib.definitions.model;
 
-import eu.europeana.corelib.utils.StaticPropertyReader;
+import eu.europeana.corelib.definitions.StaticPropertyReader;
 import org.apache.commons.lang.StringUtils;
 
 /**

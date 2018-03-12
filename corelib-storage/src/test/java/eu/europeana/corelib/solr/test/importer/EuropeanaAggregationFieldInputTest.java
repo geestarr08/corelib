@@ -17,6 +17,7 @@
 package eu.europeana.corelib.solr.test.importer;
 
 
+import eu.europeana.corelib.definitions.StaticPropertyReader;
 import eu.europeana.corelib.definitions.jibx.*;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.corelib.definitions.model.EdmLabel;
@@ -52,6 +53,8 @@ public class EuropeanaAggregationFieldInputTest {
 
     @Test
     public void testAggregation() {
+
+        StaticPropertyReader.loadTestProps();
         EuropeanaAggregationType eAggregation = createAggregationJibx();
         ProxyType                proxy        = new ProxyType();
         Type2                    type         = new Type2();

@@ -26,7 +26,7 @@ import eu.europeana.corelib.definitions.model.ColorSpace;
 import eu.europeana.corelib.definitions.model.Orientation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.*;
-import eu.europeana.corelib.utils.StaticPropertyReader;
+import eu.europeana.corelib.definitions.StaticPropertyReader;
 import eu.europeana.corelib.utils.StringArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jibx.runtime.BindingDirectory;

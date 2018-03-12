@@ -1,9 +1,9 @@
 package eu.europeana.corelib.solr.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import eu.europeana.corelib.definitions.StaticPropertyReader;
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
-import eu.europeana.corelib.utils.StaticPropertyReader;
 import eu.europeana.corelib.utils.StringArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -23,27 +23,27 @@ public class EuropeanaAggregationImpl extends AbstractEdmEntityImpl implements E
 
     private String EUROPEANA_URL = StaticPropertyReader.getEuropeanaUrl();
 
-           @Reference
-           private List<WebResource>webResources;
+    @Reference
+    private List<WebResource> webResources;
 
-           private String                    aggregatedCHO;
-           private String[]aggregates;
-           private Map<String, List<String>>dcCreator;
-           private String                    edmLandingPage;
-           private String                    edmIsShownBy;
-           private String[]edmHasView;
-           private Map<String, List<String>>edmCountry;
-           private Map<String, List<String>>edmLanguage;
-           private Map<String, List<String>>edmRights;
-           private String edmPreview="";
+    private String                    aggregatedCHO;
+    private String[]                  aggregates;
+    private Map<String, List<String>> dcCreator;
+    private String                    edmLandingPage;
+    private String                    edmIsShownBy;
+    private String[]                  edmHasView;
+    private Map<String, List<String>> edmCountry;
+    private Map<String, List<String>> edmLanguage;
+    private Map<String, List<String>> edmRights;
+    private String edmPreview = "";
 
-           @Override
-           public String getAggregatedCHO(){
-           return this.aggregatedCHO;
-           }
+    @Override
+    public String getAggregatedCHO() {
+        return this.aggregatedCHO;
+    }
 
-           @Override
-           public void setAggregatedCHO(String aggregatedCHO) {
+    @Override
+    public void setAggregatedCHO(String aggregatedCHO) {
         this.aggregatedCHO = aggregatedCHO;
     }
 

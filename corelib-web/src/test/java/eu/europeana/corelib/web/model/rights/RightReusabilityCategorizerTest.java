@@ -1,7 +1,8 @@
 package eu.europeana.corelib.web.model.rights;
 
-import eu.europeana.corelib.utils.StaticPropertyReader;
+import eu.europeana.corelib.definitions.StaticPropertyReader;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -14,12 +15,24 @@ import static org.junit.Assert.assertTrue;
 
 public class RightReusabilityCategorizerTest {
 
-	private static final String EURightsUrl 			= StaticPropertyReader.getEURightsUrl().replace(":", "\\:")
-			.replace("/", "\\/");
-	private static final String CCRightsUrl 			= StaticPropertyReader.getCCUrl().replace(":", "\\:")
-			.replace("/", "\\/");
-	private static final String RightsstatementUrl 	= StaticPropertyReader.getRightsstatementUrl().replace(":", "\\:")
-			.replace("/", "\\/");
+	private static String EURightsUrl;
+	private static String CCRightsUrl;
+	private static String RightsstatementUrl;
+
+	@BeforeClass
+	public static void setup(){
+		// this ensures that the test properties are used until further notice
+		StaticPropertyReader.loadTestProps();
+		EURightsUrl 		= StaticPropertyReader.getEURightsUrl()
+				.replace(":", "\\:")
+				.replace("/", "\\/");
+		CCRightsUrl 		= StaticPropertyReader.getCCUrl()
+				.replace(":", "\\:")
+				.replace("/", "\\/");
+		RightsstatementUrl 	= StaticPropertyReader.getRightsstatementUrl()
+				.replace(":", "\\:")
+				.replace("/", "\\/");
+	}
 
 	@Before
 	public void before() {
