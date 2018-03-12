@@ -32,7 +32,7 @@
 		p:ignoreResourceNotFound="false">
 		<property name="locations">
 			<list>
-				<!--<value>classpath:cloud_config.properties</value>-->
+				<value>classpath:cloud_config.properties</value>
 				<value>classpath:europeana.properties</value>
 				<value>classpath:europeana.user.properties</value> <!-- to allow diffferent props for development/testing -->
 			</list>
