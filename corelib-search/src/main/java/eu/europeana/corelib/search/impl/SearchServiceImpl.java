@@ -26,6 +26,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import eu.europeana.corelib.definitions.StaticPropertyReader;
 import eu.europeana.corelib.definitions.edm.beans.BriefBean;
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.definitions.edm.beans.IdBean;
@@ -113,12 +114,7 @@ public class SearchServiceImpl implements SearchService {
     private static final List<String> SPELL_FIELDS = Arrays.asList("who",
             "what", "where", "when", "title");
 
-    private static String PORTALURL;
-
-    @Value("${portal.url}")
-    private void setPortalUrl(String ps){
-        PORTALURL = ps;
-    }
+    private static String PORTALURL = StaticPropertyReader.getEuropeanaUrl();
 
     private final static String RESOLVE_PREFIX = PORTALURL + "resolve/record";
     private final static String PORTAL_PREFIX = PORTALURL + "portal/record";
