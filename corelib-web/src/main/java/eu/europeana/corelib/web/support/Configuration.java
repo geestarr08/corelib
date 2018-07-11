@@ -25,6 +25,9 @@ public class Configuration {
 	@Value("#{europeanaProperties['api.rowLimit']}")
 	private int apiRowLimit;
 
+	@Value("#{europeanaProperties['api.nobaseurl']}")
+	private String noBaseUrl;
+
 	//	TODO consider removing, is ONLY available in europeana-test.properties
 //	@Value("#{europeanaProperties['portal.bing.translate.key']}")
 //	private String bingTranslateId;
@@ -58,6 +61,10 @@ public class Configuration {
 
 	public int getApiRowLimit() {
 		return apiRowLimit;
+	}
+
+	public String getNoBaseUrl() {
+		return noBaseUrl;
 	}
 
 	// TODO only ever called via test

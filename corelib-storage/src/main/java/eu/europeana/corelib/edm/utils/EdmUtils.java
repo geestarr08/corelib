@@ -61,10 +61,11 @@ public class EdmUtils {
      * Convert a FullBean to an EDM String
      *
      * @param fullBean The FullBean to convert
+     * @param noBaseUrl omit the PREFIX true / false
      * @return The resulting EDM string in RDF-XML
      */
-    public static synchronized String toEDM(FullBeanImpl fullBean, boolean isUim) {
-        RDF rdf = toRDF(fullBean);
+    public static synchronized String toEDM(FullBeanImpl fullBean, boolean noBaseUrl) {
+        RDF rdf = toRDF(fullBean, noBaseUrl);
         return marshallToEDM(rdf);
     }
 
@@ -102,13 +103,13 @@ public class EdmUtils {
      * @param fullBean the fullbean to convert
      * @return RDF object
      */
-    public static synchronized RDF toRDF(FullBeanImpl fullBean) {
+    public static synchronized RDF toRDF(FullBeanImpl fullBean, boolean noBaseUrl) {
         RDF rdf = new RDF();
         String type = getType(fullBean);
-        appendCHO(rdf, fullBean.getProvidedCHOs());
-        appendAggregation(rdf, fullBean.getAggregations());
-        appendProxy(rdf, fullBean.getProxies(), type);
-        appendEuropeanaAggregation(rdf, fullBean);
+        appendCHO(rdf, fullBean.getProvidedCHOs(), noBaseUrl);
+        appendAggregation(rdf, fullBean.getAggregations(), noBaseUrl);
+        appendProxy(rdf, fullBean.getProxies(), type, noBaseUrl);
+        appendEuropeanaAggregation(rdf, fullBean, noBaseUrl);
         appendAgents(rdf, fullBean.getAgents());
         appendConcepts(rdf, fullBean.getConcepts());
         appendPlaces(rdf, fullBean.getPlaces());
@@ -278,13 +279,13 @@ public class EdmUtils {
         }
     }
 
-    private static void appendEuropeanaAggregation(RDF rdf, FullBeanImpl fBean) {
+    private static void appendEuropeanaAggregation(RDF rdf, FullBeanImpl fBean, boolean noBaseUrl) {
         EuropeanaAggregationType aggregation = new EuropeanaAggregationType();
         EuropeanaAggregation europeanaAggregation = fBean.getEuropeanaAggregation();
         if (isUri(europeanaAggregation.getAbout())) {
             aggregation.setAbout(europeanaAggregation.getAbout());
         } else {
-            aggregation.setAbout(PREFIX + europeanaAggregation.getAbout());
+            aggregation.setAbout((noBaseUrl ? "" : PREFIX) + europeanaAggregation.getAbout());
         }
 
         if (!addAsObject(aggregation, AggregatedCHO.class, europeanaAggregation.getAggregatedCHO())) {
@@ -292,7 +293,7 @@ public class EdmUtils {
             if (isUri(fBean.getProvidedCHOs().get(0).getAbout())) {
                 agCHO.setResource(fBean.getProvidedCHOs().get(0).getAbout());
             } else {
-                agCHO.setResource(PREFIX + fBean.getProvidedCHOs().get(0).getAbout());
+                agCHO.setResource((noBaseUrl ? "" : PREFIX) + fBean.getProvidedCHOs().get(0).getAbout());
             }
             aggregation.setAggregatedCHO(agCHO);
         }
@@ -351,14 +352,14 @@ public class EdmUtils {
         return null;
     }
 
-    private static void appendProxy(RDF rdf, List<ProxyImpl> proxies, String typeStr) {
+    private static void appendProxy(RDF rdf, List<ProxyImpl> proxies, String typeStr, boolean noBaseUrl) {
         List<ProxyType> proxyList = new ArrayList<>();
         for (ProxyImpl prx : proxies) {
             ProxyType proxy = new ProxyType();
             if (isUri(prx.getAbout())) {
                 proxy.setAbout(prx.getAbout());
             } else {
-                proxy.setAbout(PREFIX + prx.getAbout());
+                proxy.setAbout((noBaseUrl ? "" : PREFIX) + prx.getAbout());
             }
             EuropeanaProxy europeanaProxy = new EuropeanaProxy();
             europeanaProxy.setEuropeanaProxy(prx.isEuropeanaProxy());
@@ -391,7 +392,7 @@ public class EdmUtils {
                     if (isUri(pIn[i])) {
                         proxyIn.setResource(pIn[i]);
                     } else {
-                        proxyIn.setResource(PREFIX + pIn[i]);
+                        proxyIn.setResource((noBaseUrl ? "" : PREFIX) + pIn[i]);
                     }
                     pInList.add(proxyIn);
                 }
@@ -412,7 +413,7 @@ public class EdmUtils {
             addAsObject(proxy, IsRepresentationOf.class, prx.getEdmIsRepresentationOf());
             addAsList(proxy, IsSimilarTo.class, prx.getEdmIsSimilarTo());
             addAsList(proxy, IsSuccessorOf.class, prx.getEdmIsSuccessorOf());
-            addAsObject(proxy, ProxyFor.class, PREFIX + prx.getProxyFor());
+            addAsObject(proxy, ProxyFor.class, (noBaseUrl ? "" : PREFIX) + prx.getProxyFor());
             addAsList(proxy, Year.class, prx.getYear());
 
             List<EuropeanaType.Choice> dcChoices = new ArrayList<>();
@@ -461,21 +462,21 @@ public class EdmUtils {
         rdf.setProxyList(proxyList);
     }
 
-    private static void appendAggregation(RDF rdf, List<AggregationImpl> aggregations) {
+    private static void appendAggregation(RDF rdf, List<AggregationImpl> aggregations, boolean noBaseUrl) {
         List<Aggregation> aggregationList = new ArrayList<>();
         for (AggregationImpl aggr : aggregations) {
             Aggregation aggregation = new Aggregation();
             if (isUri(aggr.getAbout())) {
                 aggregation.setAbout(aggr.getAbout());
             } else {
-                aggregation.setAbout(PREFIX + aggr.getAbout());
+                aggregation.setAbout((noBaseUrl ? "" : PREFIX) + aggr.getAbout());
             }
             if (!addAsObject(aggregation, AggregatedCHO.class, aggr.getAggregatedCHO())) {
                 AggregatedCHO cho = new AggregatedCHO();
                 if (isUri(rdf.getProvidedCHOList().get(0).getAbout())) {
                     cho.setResource(rdf.getProvidedCHOList().get(0).getAbout());
                 } else {
-                    cho.setResource(PREFIX + rdf.getProvidedCHOList().get(0).getAbout());
+                    cho.setResource((noBaseUrl ? "" : PREFIX) + rdf.getProvidedCHOList().get(0).getAbout());
                 }
                 aggregation.setAggregatedCHO(cho);
             }
@@ -502,12 +503,14 @@ public class EdmUtils {
         rdf.setAggregationList(aggregationList);
     }
 
-    private static void appendCHO(RDF rdf, List<ProvidedCHOImpl> chos) {
+    private static void appendCHO(RDF rdf, List<ProvidedCHOImpl> chos, boolean noBaseUrl) {
         List<ProvidedCHOType> pChoList = new ArrayList<>();
         for (ProvidedCHOImpl pCho : chos) {
             ProvidedCHOType pChoJibx = new ProvidedCHOType();
             if (isUri(pCho.getAbout())) {
                 pChoJibx.setAbout(pCho.getAbout());
+            } else if (noBaseUrl) {
+                pChoJibx.setAbout(StringUtils.removeStartIgnoreCase(pCho.getAbout(), "/item"));
             } else {
                 pChoJibx.setAbout(PREFIX + pCho.getAbout());
             }
