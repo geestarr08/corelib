@@ -424,6 +424,7 @@ public class EdmUtils {
             addAsObject(proxy, IsRepresentationOf.class, prx.getEdmIsRepresentationOf());
             addAsList(proxy, IsSimilarTo.class, prx.getEdmIsSimilarTo());
             addAsList(proxy, IsSuccessorOf.class, prx.getEdmIsSuccessorOf());
+            addAsList(proxy, Realizes.class, prx.getEdmRealizes());
             addAsObject(proxy, ProxyFor.class, PREFIX + prx.getProxyFor());
             addAsList(proxy, Year.class, prx.getYear());
 
