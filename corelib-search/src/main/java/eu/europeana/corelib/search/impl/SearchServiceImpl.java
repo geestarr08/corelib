@@ -141,6 +141,10 @@ public class SearchServiceImpl implements SearchService {
         return findById(EuropeanaUriUtils.createEuropeanaId(collectionId, recordId), similarItems);
     }
 
+    // The same functionality as findById was before. This is now just a container function for
+    // 1) fetching the FullBean and 2) processing it (similar items + attributionsnippet)
+    // The reason for this split is to improve performance in case HTTP caching logic
+    // results in step 2) being unnecessary
     @Override
     public FullBean findById(String europeanaObjectId, boolean similarItems) throws EuropeanaException {
         FullBean fullBean = fetchFullBean(europeanaObjectId);
@@ -151,8 +155,9 @@ public class SearchServiceImpl implements SearchService {
         }
     }
 
-    // split up fetching and processing the Fullbean to facilitate improving performance for HTTP caching
-    // (e.g. eTag matching)
+    // Retrieves the Fullbean and attempts to resolve it if null.
+    // Note that the resolve process was carried over to here form the ObjectController; this should save on
+    // some API <-> Corelib traffic
     @Override
     public FullBean fetchFullBean(String europeanaObjectId) throws EuropeanaException {
         long   startTime = System.currentTimeMillis();
@@ -179,6 +184,7 @@ public class SearchServiceImpl implements SearchService {
         return fullBean;
     }
 
+    // Processing the fullbean: setting "similar items" and initiating the attributionsnippet
     public FullBean processFullBean(FullBean fullBean, String europeanaObjectId, boolean similarItems){
         WebMetaInfo.injectWebMetaInfoBatch(fullBean, mongoServer);
         if (similarItems) {
