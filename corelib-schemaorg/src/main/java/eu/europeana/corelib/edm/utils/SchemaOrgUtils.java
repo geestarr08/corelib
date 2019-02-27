@@ -16,6 +16,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import eu.europeana.corelib.edm.model.schemaorg.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,21 +25,6 @@ import eu.europeana.corelib.definitions.edm.entity.Aggregation;
 import eu.europeana.corelib.definitions.edm.entity.Concept;
 import eu.europeana.corelib.definitions.edm.entity.ContextualClass;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
-import eu.europeana.corelib.edm.model.schemaorg.AudioObject;
-import eu.europeana.corelib.edm.model.schemaorg.CreativeWork;
-import eu.europeana.corelib.edm.model.schemaorg.GeoCoordinates;
-import eu.europeana.corelib.edm.model.schemaorg.MediaObject;
-import eu.europeana.corelib.edm.model.schemaorg.MultilingualString;
-import eu.europeana.corelib.edm.model.schemaorg.Organization;
-import eu.europeana.corelib.edm.model.schemaorg.Person;
-import eu.europeana.corelib.edm.model.schemaorg.Place;
-import eu.europeana.corelib.edm.model.schemaorg.QuantitativeValue;
-import eu.europeana.corelib.edm.model.schemaorg.Reference;
-import eu.europeana.corelib.edm.model.schemaorg.SchemaOrgConstants;
-import eu.europeana.corelib.edm.model.schemaorg.Text;
-import eu.europeana.corelib.edm.model.schemaorg.Thing;
-import eu.europeana.corelib.edm.model.schemaorg.VideoObject;
-import eu.europeana.corelib.edm.model.schemaorg.VisualArtwork;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
@@ -79,12 +65,12 @@ public final class SchemaOrgUtils {
         String jsonld = null;
 
         List<Thing> objectsToSerialize = new ArrayList<>();
-        Thing object = SchemaOrgTypeFactory.createObject(bean);
-        objectsToSerialize.add(object);
+        Thing mainObject = SchemaOrgTypeFactory.createObject(bean);
+        objectsToSerialize.add(mainObject);
 
-        processProvidedCHO((CreativeWork) object, bean);
-        processProxies((CreativeWork) object, bean);
-        objectsToSerialize.addAll(processAggregations((CreativeWork) object, bean));
+        processProvidedCHO((CreativeWork) mainObject, bean);
+        processProxies((CreativeWork) mainObject, bean);
+        objectsToSerialize.addAll(processAggregations((CreativeWork) mainObject, bean));
         objectsToSerialize.addAll(processAgents(bean.getAgents()));
         objectsToSerialize.addAll(processPlaces(bean.getPlaces()));
         objectsToSerialize.addAll(processConcepts(bean.getConcepts()));
@@ -93,7 +79,7 @@ public final class SchemaOrgUtils {
         try {
             jsonld = serializer.serialize(objectsToSerialize);
         } catch (IOException e) {
-            LOG.error("Serialization to schema.org failed for " + object.getId(), e);
+            LOG.error("Serialization to schema.org failed for " + mainObject.getId(), e);
         }
         return jsonld;
     }

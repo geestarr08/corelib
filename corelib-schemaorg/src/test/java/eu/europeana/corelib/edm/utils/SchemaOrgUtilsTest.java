@@ -27,21 +27,22 @@ public class SchemaOrgUtilsTest {
 	
     /**
      * Test schema.org generation and serialization
-     * @throws IOException 
-     * @throws URISyntaxException 
      */
     @Test
     public void toSchemaOrgTest() throws IOException, URISyntaxException {
         FullBeanImpl bean = MockFullBean.mock();
         String output = SchemaOrgUtils.toSchemaOrg(bean);
         Assert.assertNotNull(output);
+
         //Used for testing purposes, use the following call to update the expected output whenever the serialization is updated
 //        writeToFile(output);
-        InputStream stream = getClass().getResourceAsStream(FULL_BEAN_FILE);
-        String expectedOutput = IOUtils.toString(stream, StandardCharsets.UTF_8);
-        //we cannot string compare until the ordering of properties is implemented
-        //still, a fast indication that the output was changed will be indicated through the length of the string
-        assertEquals(expectedOutput.length(), output.length());
+
+        try (InputStream stream = getClass().getResourceAsStream(FULL_BEAN_FILE)) {
+            String expectedOutput = IOUtils.toString(stream, StandardCharsets.UTF_8);
+            //we cannot string compare until the ordering of properties is implemented
+            //still, a fast indication that the output was changed will be indicated through the length of the string
+            assertEquals(expectedOutput.length(), output.length());
+        }
     }
 
 	void writeToFile(String output) throws IOException, URISyntaxException {
