@@ -49,6 +49,7 @@ import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.AbstractHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HttpContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -57,6 +58,8 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrQuery.ORDER;
 import org.apache.solr.client.solrj.SolrRequest;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.CloudSolrClient;
+import org.apache.solr.client.solrj.impl.HttpClientUtil;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.request.LukeRequest;
 import org.apache.solr.client.solrj.response.FacetField;
@@ -450,7 +453,6 @@ public class SearchServiceImpl implements SearchService {
 
                     QueryResponse queryResponse = solrClient.query(solrQuery, SolrRequest.METHOD.POST);
 
-
                     resultSet.setResults((List<T>) queryResponse.getBeans(beanClazz));
                     resultSet.setFacetFields(queryResponse.getFacetFields());
                     resultSet.setResultSize(queryResponse.getResults().getNumFound());
@@ -733,7 +735,6 @@ public class SearchServiceImpl implements SearchService {
     }
 
     public void setSolrClient(SolrClient solrClient) {
-        //this.solrClient = setSolrClient(solrClient);
         this.solrClient = setClient(solrClient);
     }
 
@@ -748,6 +749,10 @@ public class SearchServiceImpl implements SearchService {
             client.addRequestInterceptor(new PreEmptiveBasicAuthenticator(username, password));
             return server;
         } else {
+            if (solrClient instanceof CloudSolrClient){
+                DefaultHttpClient httpClient = (DefaultHttpClient) ((CloudSolrClient) solrClient).getLbClient().getHttpClient();
+                HttpClientUtil.setAllowCompression(httpClient, true);
+            }
             return solrClient;
         }
     }
