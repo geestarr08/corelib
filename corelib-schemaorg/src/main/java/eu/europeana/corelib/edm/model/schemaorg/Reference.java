@@ -2,6 +2,8 @@ package eu.europeana.corelib.edm.model.schemaorg;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldId;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -17,6 +19,7 @@ public class Reference<T extends Thing> implements BaseType {
         this.type = type;
     }
 
+    @JacksonXmlProperty(localName = "id")
     @JsonldId
     private String id;
 
@@ -28,6 +31,7 @@ public class Reference<T extends Thing> implements BaseType {
         this.id = id;
     }
 
+    @JacksonXmlProperty(localName = "type")
     @JsonProperty("@type")
     public String getType() {
         if (type != null) {

@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldId;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
@@ -32,11 +34,13 @@ public class Thing implements BaseType {
         this.id = id;
     }
 
+    @JacksonXmlProperty(localName = "id")
     @JsonldId
     public String getId() {
         return id;
     }
-
+    
+    @JacksonXmlElementWrapper(useWrapping = false)
     @JsonProperty(SchemaOrgConstants.PROPERTY_NAME)
     public List<BaseType> getName() {
         return getProperty(SchemaOrgConstants.PROPERTY_NAME);

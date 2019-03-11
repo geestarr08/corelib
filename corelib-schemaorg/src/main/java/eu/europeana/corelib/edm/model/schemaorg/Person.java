@@ -1,6 +1,8 @@
 package eu.europeana.corelib.edm.model.schemaorg;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldType;
 
@@ -33,6 +35,8 @@ public class Person extends ContextualEntity {
         return getProperty(SchemaOrgConstants.PROPERTY_JOB_TITLE);
     }
 
+    //@JacksonXmlElementWrapper(localName = "list")
+    @JacksonXmlElementWrapper(useWrapping = false)
     @JsonldProperty(SchemaOrgConstants.PROPERTY_BIRTH_PLACE)
     public List<BaseType> getBirthPlace() {
         return getProperty(SchemaOrgConstants.PROPERTY_BIRTH_PLACE);
