@@ -2,12 +2,14 @@ package eu.europeana.corelib.edm.model.schemaorg;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldType;
 
 import java.util.List;
 
+@JacksonXmlRootElement(localName= "edm:Agent")
 @JsonldType(SchemaOrgConstants.TYPE_PERSON)
 public class Person extends ContextualEntity {
 

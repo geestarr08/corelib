@@ -152,4 +152,20 @@ public final class SchemaOrgConstants {
     public static final String ENTITY_PAGE_URL_AGENT_PATTERN = "https://www.europeana.eu/portal/en/explore/people/%s.html";
     
     public static final String ENTITY_PAGE_URL_PLACE_PATTERN = "https://www.europeana.eu/portal/en/explore/place/%s.html";
+    
+    public static final String XMLNS_ANNOTATION_RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+    
+    public static final String XMLNS_ANNOTATION_DC = "http://purl.org/dc/elements/1.1/";
+    
+    public static final String XMLNS_ANNOTATION_EDM = "http://www.europeana.eu/schemas/edm/";
+    
+    public static final String XMLNS_ANNOTATION_FOAF = "http://xmlns.com/foaf/0.1/";
+    
+    public static final String XMLNS_ANNOTATION_RDAGR2 = "http://rdvocab.info/ElementsGr2/";
+    
+    public static final String XMLNS_ANNOTATION_OWL = "http://www.w3.org/2002/07/owl#";
+    
+    public static final String XMLNS_ANNOTATION_SKOS = "http://www.w3.org/2004/02/skos/core#";
+    
+    public static final String XMLNS_ANNOTATION_DCTERMS = "http://purl.org/dc/terms/";
 }

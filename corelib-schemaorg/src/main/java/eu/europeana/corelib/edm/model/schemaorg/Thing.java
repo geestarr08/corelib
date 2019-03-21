@@ -34,18 +34,20 @@ public class Thing implements BaseType {
         this.id = id;
     }
 
-    @JacksonXmlProperty(localName = "id")
+    @JacksonXmlProperty(isAttribute= true, localName = "rdf:about")
     @JsonldId
     public String getId() {
         return id;
     }
     
     @JacksonXmlElementWrapper(useWrapping = false)
+    @JacksonXmlProperty(localName= "skos:prefLabel")
     @JsonProperty(SchemaOrgConstants.PROPERTY_NAME)
     public List<BaseType> getName() {
         return getProperty(SchemaOrgConstants.PROPERTY_NAME);
     }
 
+    @JacksonXmlProperty(localName= "skos:note")
     @JsonProperty(SchemaOrgConstants.PROPERTY_DESCRIPTION)
     public List<BaseType> getDescription() {
         return getProperty(SchemaOrgConstants.PROPERTY_DESCRIPTION);
