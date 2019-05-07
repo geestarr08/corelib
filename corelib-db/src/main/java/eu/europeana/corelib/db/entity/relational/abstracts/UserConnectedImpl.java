@@ -41,23 +41,23 @@ import eu.europeana.corelib.definitions.db.entity.relational.abstracts.UserConne
 @MappedSuperclass
 @Deprecated
 public abstract class UserConnectedImpl<I extends Serializable> implements IdentifiedEntity<I>, UserConnected<I> {
-	private static final long serialVersionUID = 1L;
-
-	@ManyToOne(targetEntity=UserImpl.class, fetch=FetchType.EAGER)
-	@JoinColumn(name = "userid", insertable = false, updatable = false)
-	private User user;
-
-	/**
-	 * GETTERS & SETTTERS
-	 */
-
-	@Override
-	public User getUser() {
-		return user;
-	}
-
-	@Override
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	private static final long serialVersionUID = 1L;
+//
+//	@ManyToOne(targetEntity=UserImpl.class, fetch=FetchType.EAGER)
+//	@JoinColumn(name = "userid", insertable = false, updatable = false)
+//	private User user;
+//
+//	/**
+//	 * GETTERS & SETTTERS
+//	 */
+//
+//	@Override
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	@Override
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 }

@@ -59,6 +59,11 @@ public class WebMetaInfo {
             generateWebResource(aggregationFix, isShownBy);
         }
 
+        if (aggregationFix.getEdmIsShownAt() != null) {
+            String isShownAt = aggregationFix.getEdmIsShownAt();
+            generateWebResource(aggregationFix, isShownAt);
+        }
+
         if (aggregationFix.getEdmObject() != null) {
             String edmObject = aggregationFix.getEdmObject();
             generateWebResource(aggregationFix, edmObject);
@@ -152,6 +157,10 @@ public class WebMetaInfo {
                 urls.add(aggregation.getEdmIsShownBy());
             }
 
+            if (StringUtils.isNotEmpty(aggregation.getEdmIsShownAt())) {
+                urls.add(aggregation.getEdmIsShownAt());
+            }
+
             if (null != aggregation.getHasView()) {
                 urls.addAll(Arrays.asList(aggregation.getHasView()));
             }
@@ -176,6 +185,12 @@ public class WebMetaInfo {
                 if (!hashCodes.containsValue(webResource) && aggregation.getEdmIsShownBy() != null) {
                     String hashCodeIsShownBy = generateHashCode(aggregation.getEdmIsShownBy(), aggregation.getAbout());
                     hashCodes.put(hashCodeIsShownBy, webResource);
+                }
+
+                // Locate the technical meta data from the aggregation is shown at
+                if (!hashCodes.containsValue(webResource) && aggregation.getEdmIsShownAt() != null) {
+                    String hashCodeIsShownAt = generateHashCode(aggregation.getEdmIsShownAt(), aggregation.getAbout());
+                    hashCodes.put(hashCodeIsShownAt, webResource);
                 }
             }
         }
