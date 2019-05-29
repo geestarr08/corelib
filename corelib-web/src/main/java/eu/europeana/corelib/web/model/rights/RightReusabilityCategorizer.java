@@ -90,12 +90,12 @@ public class RightReusabilityCategorizer {
 		permissionUrls.add(RightsOption.RS_CNE.getUrl());
 	}
 
-	RightReusabilityCategorizer() {
+	public RightReusabilityCategorizer() {
 		numberOfOpen = 0;
 		numberOfRestricted = 0;
 	}
 
-	void categorize(String url, long count) {
+	public void categorize(String url, long count) {
 		String cleanedUrl = cleanUrl(url);
 		String category = null;
 
@@ -222,11 +222,11 @@ public class RightReusabilityCategorizer {
 				.replace("RIGHTS:", "");
 	}
 
-	long getNumberOfOpen() {
+	public long getNumberOfOpen() {
 		return numberOfOpen;
 	}
 
-	long getNumberOfRestricted() {
+	public long getNumberOfRestricted() {
 		return numberOfRestricted;
 	}
 
