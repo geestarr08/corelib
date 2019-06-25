@@ -53,7 +53,8 @@ public class SearchUtils {
 
 	/**
 	 * Checks if there is no TYPE facet with an invalid type according to EDM
-	 *
+	 * NOTE the value of this method is heavily disputed (EA-1631). It does not seem to do much harm, but not much
+	 * good either. We'll keep it in for now in order not to break anything unforeseen.
 	 *
 	 * @param refinements
 	 * @return Returns true if there is no TYPE facet or each type facet has

@@ -667,7 +667,7 @@ public class Query implements Cloneable {
         }
     }
 
-    public void divideRefinements() {
+    private void divideRefinements() {
         searchRefinementsList = new ArrayList<>();
         facetedRefinementsList = new ArrayList<>();
 
