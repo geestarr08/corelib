@@ -20,11 +20,11 @@
 <!--    </bean>-->
 <!--    <bean id="corelib_db_dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">-->
 
-    <bean id="corelib_db_dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+    <bean id="corelib_db_dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
         <property name="driverClassName" value="#{europeanaProperties['db.driverClass']}"/>
-        <property name="url" value="jdbc:#{europeanaProperties['postgres.jdbcUrl']}" />
-        <property name="maxIdle" value="2" />
-        <property name="maxActive" value="10" />
+        <property name="jdbcUrl" value="jdbc:#{europeanaProperties['postgres.jdbcUrl']}" />
+        <property name="minimumIdle" value="2" />
+        <property name="maximumPoolSize" value="10" />
     </bean>
 
     <bean id="corelib_db_mongoProvider" class="eu.europeana.corelib.storage.impl.MongoProviderImpl" destroy-method="close">
