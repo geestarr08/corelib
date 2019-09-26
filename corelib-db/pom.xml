@@ -157,11 +157,17 @@
             <artifactId>spring-context</artifactId>
             <version>${springCore.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.tomcat</groupId>-->
-<!--            <artifactId>tomcat-jdbc</artifactId>-->
-<!--            <version>9.0.5</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+            <version>9.0.5</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-juli</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>commons-dbcp</groupId>-->
 <!--            <artifactId>commons-dbcp</artifactId>-->
@@ -169,14 +175,9 @@
 <!--        </dependency>-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-connectors-core</artifactId>-->
+<!--            <artifactId>spring-cloud-spring-service-connector</artifactId>-->
 <!--            <version>2.0.6.RELEASE</version>-->
 <!--        </dependency>-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-spring-service-connector</artifactId>
-            <version>2.0.6.RELEASE</version>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
