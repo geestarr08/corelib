@@ -58,7 +58,13 @@ public enum ProblemType {
     MISSING_PARAM_USERNAME(null,"Required parameter 'username' missing.", ProblemResponseAction.IGNORE),
     MISSING_PARAM_EMAIL(null,"Required parameter 'email' missing.", ProblemResponseAction.IGNORE),
     MISSING_PARAM_PASSWORD(null,"Required parameter 'password' missing.", ProblemResponseAction.IGNORE),
-    DUPLICATE(null,"Record already exists.", ProblemResponseAction.IGNORE);
+    DUPLICATE(null,"Record already exists.", ProblemResponseAction.IGNORE),
+
+    TESTEMAIL1(null,"testemail1", ProblemResponseAction.MAIL),
+
+    TESTEMAIL2(null,"testemail2", ProblemResponseAction.MAIL),
+    TESTEMAIL3(null,"testemail3", ProblemResponseAction.MAIL);
+
 
     // Not used anymore, to be deleted soon
 // MATCH_ALL_DOCS(null,"org.apache.lucene.search.MatchAllDocsQuery", ProblemResponseAction.IGNORE),
