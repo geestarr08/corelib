@@ -6,6 +6,7 @@ import eu.europeana.corelib.definitions.edm.beans.IdBean;
 import eu.europeana.corelib.definitions.edm.entity.Aggregation;
 import eu.europeana.corelib.definitions.solr.model.Query;
 import eu.europeana.corelib.definitions.solr.model.QuerySort;
+import eu.europeana.corelib.definitions.solr.model.RandomSeed;
 import eu.europeana.corelib.edm.exceptions.BadDataException;
 import eu.europeana.corelib.edm.exceptions.SolrIOException;
 import eu.europeana.corelib.edm.exceptions.SolrQueryException;
@@ -429,12 +430,9 @@ public class SearchServiceImpl implements SearchService {
     private <T extends IdBean> void setSortAndCursor(Query query, ResultSet<T> resultSet, SolrQuery solrQuery) {
         boolean defaultSort = query.getSorts().size() == 0;
         if (defaultSort) {
-            solrQuery.setSort("has_media", ORDER.desc);
-            solrQuery.addSort("score", ORDER.desc);
-            solrQuery.addSort("timestamp_update", ORDER.desc);
-            // completeness is added last because many records have incorrect value 0
-            solrQuery.addSort("europeana_completeness", ORDER.desc);
-            solrQuery.addSort("europeana_id", ORDER.asc);
+            solrQuery.setSort("score", ORDER.desc);
+            solrQuery.addSort("contentTier", ORDER.desc);
+            solrQuery.addSort("random_"+ RandomSeed.randomString(12), ORDER.desc);
         } else {
             // User set sort
             solrQuery.clearSorts();
