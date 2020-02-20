@@ -13,14 +13,15 @@ import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 import eu.europeana.corelib.storage.MongoProvider;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 public class EmbeddedMongoProvider implements MongoProvider {
 
 
-    private static final Logger LOG = Logger.getLogger(EmbeddedMongoProvider.class);
+    private static final Logger LOG = LogManager.getLogger(EmbeddedMongoProvider.class);
 
     private static final String DB_NAME = "europeana_test";
 
@@ -39,7 +40,7 @@ public class EmbeddedMongoProvider implements MongoProvider {
             mongo = new MongoClient("localhost", port);
             EdmMongoServer mongoDBServer = new EdmMongoServerImpl(mongo, DB_NAME);
             mongoDBServer.getDatastore().getDB().dropDatabase();
-        } catch (IOException | MongoDBException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

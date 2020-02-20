@@ -5,7 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Date util classes
@@ -13,8 +14,9 @@ import org.apache.log4j.Logger;
  *
  */
 public class DateUtils {
-	private static final Logger LOG = Logger.getLogger(DateUtils.class);
+	private static final Logger LOG = LogManager.getLogger(DateUtils.class);
 	private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
 	static {
 		formatter.setTimeZone(TimeZone.getTimeZone("GTM"));
 	}

@@ -1,13 +1,13 @@
 package eu.europeana.corelib.lookup.impl;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import com.mongodb.MongoClient;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
-import com.mongodb.Mongo;
 
 import eu.europeana.corelib.storage.MongoServer;
 import eu.europeana.corelib.tools.lookuptable.Collection;
@@ -22,7 +22,7 @@ import eu.europeana.corelib.tools.lookuptable.CollectionMongoServer;
  */
 public class CollectionMongoServerImpl implements MongoServer, CollectionMongoServer {
 
-	private static final Logger log = Logger.getLogger(CollectionMongoServerImpl.class.getName());
+	private static final Logger LOG = LogManager.getLogger(CollectionMongoServerImpl.class.getName());
 
 	private MongoClient mongoClient;
 	private String databaseName;
@@ -53,12 +53,14 @@ public class CollectionMongoServerImpl implements MongoServer, CollectionMongoSe
 
 	/**
 	 * Create a new datastore to do get/delete/save operations on the database
-	 * @param host
-	 * @param port
-	 * @param databaseName
-	 * @param username
-	 * @param password
+	 * @deprecated 	not called from anywhere
+	 * @param 		host
+	 * @param 		port
+	 * @param 		databaseName
+	 * @param 		username
+	 * @param 		password
 	 */
+	@Deprecated
 	public CollectionMongoServerImpl(String host, int port, String databaseName, String username, String password) {
 		this.mongoClient = new MongoProviderImpl(host, String.valueOf(port), databaseName, username, password).getMongo();
 		this.databaseName = databaseName;
@@ -70,7 +72,7 @@ public class CollectionMongoServerImpl implements MongoServer, CollectionMongoSe
 		morphia.map(Collection.class);
 		datastore = morphia.createDatastore(mongoClient, databaseName);
 		datastore.ensureIndexes();
-		log.info("CollectionMongoServer datastore is created");
+		LOG.info("[corelib.lookup CollectionMongoServer] CollectionMongoServer datastore is created");
 	}
 
 	/**
@@ -78,6 +80,7 @@ public class CollectionMongoServerImpl implements MongoServer, CollectionMongoSe
 	 */
 	@Override
 	public Datastore getDatastore() {
+		LOG.info("[corelib.lookup CollectionMongoServer] get datastore");
 		return this.datastore;
 	}
 
@@ -87,7 +90,7 @@ public class CollectionMongoServerImpl implements MongoServer, CollectionMongoSe
 	@Override
 	public void close() {
 		if (mongoClient != null) {
-			log.info("Closing MongoClient for CollectionMongoServer");
+			LOG.info("[corelib.lookup CollectionMongoServer] closing MongoClient");
 			mongoClient.close();
 		}
 	}

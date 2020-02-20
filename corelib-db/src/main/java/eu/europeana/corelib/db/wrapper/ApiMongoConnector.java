@@ -1,13 +1,15 @@
 package eu.europeana.corelib.db.wrapper;
 
-import com.mongodb.*;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoException;
 import eu.europeana.corelib.storage.MongoProvider;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
-
-import org.mongodb.morphia.Morphia;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mongodb.morphia.Datastore;
-import org.apache.log4j.Logger;
+import org.mongodb.morphia.Morphia;
 
+import javax.management.DescriptorKey;
 
 /**
  * Let the search-api (and other api's?) connect to a mongo database with Morphia
@@ -15,44 +17,52 @@ import org.apache.log4j.Logger;
  */
 public class ApiMongoConnector {
 
-    private static final Logger LOG = Logger.getLogger(ApiMongoConnector.class);
+    private static final Logger LOG = LogManager.getLogger(ApiMongoConnector.class);
 
     private MongoClient mongoClient;
-    private String label;
+    private String      label;
 
     /**
      * Create a Morphia connection using a mongo connection url. Note that a database name is required in the url
-     * @see <a href="http://api.mongodb.com/java/current/com/mongodb/MongoClientURI.html">
-     *     MongoClientURI documentation</a>
+     * @deprecated  not called from anywhere
      * @param connectionUrl, e.g. mongodb://user:password@mongo1.eanadev.org:27000/europeana_1?replicaSet=europeana
-     * @return
+     * @return DataStore
+     * @see <a href="http://api.mongodb.com/java/current/com/mongodb/MongoClientURI.html">
+     * MongoClientURI documentation</a>
      */
-    public Datastore createDatastore(String connectionUrl) throws InterruptedException {
+    @Deprecated
+    public Datastore createDatastore(String connectionUrl) {
         MongoProvider mongo = new MongoProviderImpl(connectionUrl);
-        this.label = mongo.getDefaultDatabase();
+        this.label       = mongo.getDefaultDatabase();
         this.mongoClient = mongo.getMongo();
-        LOG.info(String.format("Creating Morphia datastore for databases '%s'", label));
+        LOG.info("[corelib.db ApiMongoConnector] Creating Morphia datastore for databases {}", label);
         return new Morphia().createDatastore(mongoClient, label);
     }
 
     /**
      * Create a basic connection to do get/delete/save operations on the database
-     * @param label    The label of the server to connect to (for logging purposes only)
-     * @param host     The host to connect to
-     * @param port     The port to connect to
-     * @param dbName   The database to connect to
-     * @param username Username for connection
-     * @param password Password for connection
+     * @deprecated      this method is not called from anywhere
+     * @param label     The label of the server to connect to (for logging purposes only)
+     * @param host      The host to connect to
+     * @param port      The port to connect to
+     * @param dbName    The database to connect to
+     * @param username  Username for connection
+     * @param password  Password for connection
      * @return datastore
      */
-    public Datastore createDatastore(String label, String host, int port, String dbName, String username,
+    @Deprecated
+    public Datastore createDatastore(String label,
+                                     String host,
+                                     int port,
+                                     String dbName,
+                                     String username,
                                      String password) {
-        Datastore datastore = null;
-        Morphia connection = new Morphia();
+        Datastore datastore  = null;
+        Morphia   connection = new Morphia();
         try {
-            this.label = label;
+            this.label       = label;
             this.mongoClient = new MongoProviderImpl(host, String.valueOf(port), dbName, username, password).getMongo();
-            LOG.info(String.format("Creating Morphia datastore for database %s", dbName));
+            LOG.info("[corelib.db ApiMongoConnector] Creating Morphia datastore for database {}", dbName);
             datastore = connection.createDatastore(mongoClient, dbName);
         } catch (MongoException e) {
             LOG.error(e.getMessage(), e);
@@ -63,18 +73,20 @@ public class ApiMongoConnector {
     /**
      * Create a basic connection to do get/delete/save operations on the database
      * Any required login credentials should already be stored in the provided MongoClient object
+     * @deprecated          not used
      * @param label         The label of the server to connect to (for logging purposes only)
-     * @param mongoClient
-     * @param dbName
+     * @param mongoClient   mongoClient
+     * @param dbName        dbName
      * @return datastore
      */
+    @Deprecated
     public Datastore createDatastore(String label, MongoClient mongoClient, String dbName) {
-        Datastore datastore = null;
-        Morphia connection = new Morphia();
+        Datastore datastore  = null;
+        Morphia   connection = new Morphia();
         try {
-            this.label = label;
+            this.label       = label;
             this.mongoClient = mongoClient;
-            LOG.info(String.format("Creating Morphia "+label+" datastore for database %s", dbName));
+            LOG.info("[corelib.db ApiMongoConnector] Creating Morphia {} datastore for database {}", label, dbName);
             datastore = connection.createDatastore(mongoClient, dbName);
         } catch (MongoException e) {
             LOG.error(e.getMessage(), e);
@@ -87,7 +99,7 @@ public class ApiMongoConnector {
      */
     public void close() {
         if (mongoClient != null) {
-            LOG.info(String.format("Closing MongoClient for '%s'", label));
+            LOG.info("[corelib.db ApiMongoConnector] Closing MongoClient for {}", label);
             mongoClient.close();
         }
     }
