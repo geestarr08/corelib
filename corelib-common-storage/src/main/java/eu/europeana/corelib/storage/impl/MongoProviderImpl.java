@@ -22,7 +22,7 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
     private static final int    MAX_THREADS_THRESHOLD = 20;
 
     private MongoClient mongo;
-    private String      defaultDatabase;
+    private String      definedDatabase;
 
     // from OAI-PMH2, values taken from the oai-pmh2 properties for now
     // number of threads from configuration
@@ -51,13 +51,13 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
         MongoClientOptions.Builder clientOptions = new MongoClientOptions.Builder().addConnectionPoolListener(this);
         MongoClientURI uri = new MongoClientURI(connectionUrl, clientOptions);
 //        MongoClientURI uri = new MongoClientURI(connectionUrl);
-        defaultDatabase = uri.getDatabase();
-        LOG.info("[corelib.storage MongoProvider] Creating new MongoClient for {}, database: {}",
+        definedDatabase = uri.getDatabase();
+        LOG.info("[MongoProvider] [constructor] creating new MongoClient for {}; {}",
                  uri.getHosts(),
-                 (StringUtils.isEmpty(defaultDatabase) ? "" : ", database " + defaultDatabase));
+                 (StringUtils.isEmpty(definedDatabase) ? "default database" : ", database: " + definedDatabase + " "));
         mongo = new MongoClient(uri);
         initThreadPool();
-        LOG.info("===> the number of counted connections is now: {}", this.nrConnections);
+        LOG.info("[MongoProvider] [constructor] connections count: {}", this.nrConnections);
     }
 
     /**
@@ -73,13 +73,15 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
         if (threadsCount < 1) {
             threadsCount = 1;
         } else if (threadsCount > THREADS_THRESHOLD && threadsCount <= maxThreadsCount) {
-            LOG.warn("Number of threads exceeds " + THREADS_THRESHOLD + " which may narrow the number of clients working in parallel");
+            LOG.warn("[MongoProvider] [initThreadPool()] thread count exceeds {}, which may narrow " +
+                     "the number of clients working in parallel", THREADS_THRESHOLD);
         } else if (threadsCount > maxThreadsCount) {
-            LOG.warn("Number of threads exceeds {}, which may highly narrow the number of clients working in parallel. Changing to {}",
+            LOG.warn("[MongoProvider] [initThreadPool()] thread count exceeds {}, which may highly narrow " +
+                     "the number of clients working in parallel. Changing to {}",
                      maxThreadsCount, MAX_THREADS_THRESHOLD);
             threadsCount = MAX_THREADS_THRESHOLD;
         }
-        LOG.info("Creating new thread pool with {} threads.", threadsCount);
+        LOG.info("[MongoProvider] [initThreadPool()] creating new thread pool with {} threads.", threadsCount);
         threadPool = Executors.newFixedThreadPool(threadsCount);
     }
 
@@ -141,7 +143,7 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
                     ServerAddress address = new ServerAddress(host, getPort(ports, i));
                     serverAddresses.add(address);
                 } catch (NumberFormatException e) {
-                    LOG.error("[corelib.storage MongoProvider] Error parsing port numbers", e);
+                    LOG.error("[MongoProvider] [params constructor] error parsing port numbers", e);
                 }
             }
             i++;
@@ -154,20 +156,20 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
         }
 
         if (StringUtils.isEmpty(dbName) || StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
-            LOG.info("[corelib.storage MongoProvider] [params] Creating new MongoClient - {} {}",
+            LOG.info("[MongoProvider] [params constructor] creating new MongoClient: {} {}",
                      Arrays.toString(hosts),
                      " (no credentials)");
-            defaultDatabase = null;
+            definedDatabase = null;
             mongo           = new MongoClient(serverAddresses, builder.build());
         } else {
             List<MongoCredential> credentials = new ArrayList<>();
             credentials.add(MongoCredential.createCredential(username, dbName, password.toCharArray()));
-            LOG.info("[corelib.storage MongoProvider] [params] Creating new MongoClient - {} {} {} {}",
+            LOG.info("[MongoProvider] [params constructor] Creating new MongoClient - {} {} {} {}",
                      Arrays.toString(hosts),
                      ", database ",
                      dbName,
                      " (with credentials)");
-            defaultDatabase = dbName;
+            definedDatabase = dbName;
             mongo           = new MongoClient(serverAddresses, credentials, builder.build());
         }
     }
@@ -216,7 +218,7 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
      */
     @Override
     public MongoClient getMongo() {
-        LOG.info("===> [getMongo] nr of connections is now: {}", this.nrConnections);
+        LOG.info("===> [MongoProvider] [getMongo()] connections count: {}", this.nrConnections);
         return mongo;
     }
 
@@ -224,7 +226,7 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
      * @see MongoProvider#getDefaultDatabase()
      */
     public String getDefaultDatabase() {
-        return defaultDatabase;
+        return definedDatabase;
     }
 
     /**
@@ -232,25 +234,25 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
      */
     @Override
     public void close() {
-        LOG.info("===> [closing down] nr of connections is now: {}", this.nrConnections);
+        LOG.info("[MongoProvider] [close()] connections count: {}", this.nrConnections);
         if (mongo != null) {
-            LOG.info("[corelib.storage MongoProvider] Closing MongoClient - {}", mongo.getServerAddressList().get(0));
+            LOG.info("[MongoProvider] [close()] ... closing MongoClient ... {}", mongo.getServerAddressList().get(0));
             mongo.close();
         }
         if (threadPool != null) {
-            LOG.info("[corelib.storage MongoProvider] Shutting down threadPool...");
+            LOG.info("[MongoProvider] [close()] ... shutting down threadPool ...");
             threadPool.shutdown();
         }
     }
 
     @Override
     public void connectionPoolOpened(ConnectionPoolOpenedEvent connectionPoolOpenedEvent) {
-        LOG.info("[corelib.storage MongoProvider] Connection pool opened {}", connectionPoolOpenedEvent);
+        LOG.info("[MongoProvider] [connectionPoolOpened()]: {}", connectionPoolOpenedEvent);
     }
 
     @Override
     public void connectionPoolClosed(ConnectionPoolClosedEvent connectionPoolClosedEvent) {
-        LOG.info("[corelib.storage MongoProvider] Connection pool closed {}", connectionPoolClosedEvent);
+        LOG.info("[MongoProvider] [connectionPoolClosed()]: {}", connectionPoolClosedEvent);
     }
 
     @Override
@@ -276,14 +278,14 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
     @Override
     public synchronized void connectionAdded(ConnectionAddedEvent connectionAddedEvent) {
         nrConnections++;
-        LOG.info("[corelib.storage] {} for corelib.storage MongoProvider {}, total Mongo connections = {}", connectionAddedEvent,
+        LOG.info("[MongoProvider] [connectionAdded()] {} for MongoProvider {}; connections count: {}", connectionAddedEvent,
                  this.hashCode(), nrConnections);
     }
 
     @Override
     public synchronized void connectionRemoved(ConnectionRemovedEvent connectionRemovedEvent) {
         nrConnections--;
-        LOG.info("[corelib.storage] {} for corelib.storage MongoProvider {}, total Mongo connections = {}", connectionRemovedEvent,
+        LOG.info("[MongoProvider] [connectionRemoved()] {} for MongoProvider {}; connections count: {}", connectionRemovedEvent,
                  this.hashCode(), nrConnections);
     }
 }
