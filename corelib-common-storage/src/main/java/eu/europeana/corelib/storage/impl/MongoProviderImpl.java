@@ -49,6 +49,8 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
     public MongoProviderImpl(String connectionUrl) {
         // Let's add a connectionPoolListener so we can keep track of the number of connections
         MongoClientOptions.Builder clientOptions = new MongoClientOptions.Builder().addConnectionPoolListener(this);
+        clientOptions.connectTimeout(5000);
+        clientOptions.socketTimeout(6000);
         MongoClientURI uri = new MongoClientURI(connectionUrl, clientOptions);
 //        MongoClientURI uri = new MongoClientURI(connectionUrl);
         definedDatabase = uri.getDatabase();
