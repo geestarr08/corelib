@@ -32,8 +32,8 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
     // Looks like both are static numbers from the configuration and never changed (at least not after initialization in initThreadPool method)
     private int maxThreadsCount = 20;
 
-    // for some reason we always get 2 connections directly after start-up that are not registered by the ConnectionPoolListener
-    private int nrConnections = 2;
+    // I do not see the 2 connections directly after start-up that Patrick reported, so let's start at 0
+    private int nrConnections = 0;
 
     private ExecutorService threadPool;
 
