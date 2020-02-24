@@ -218,7 +218,7 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
      */
     @Override
     public MongoClient getMongo() {
-        LOG.info("===> [MongoProvider] [getMongo()] connections count: {}", this.nrConnections);
+        LOG.info("[MongoProvider] [getMongo()] connections count: {}", this.nrConnections);
         return mongo;
     }
 

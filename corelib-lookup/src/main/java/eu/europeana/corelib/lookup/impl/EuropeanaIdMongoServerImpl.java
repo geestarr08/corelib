@@ -40,7 +40,7 @@ public class EuropeanaIdMongoServerImpl implements MongoServer, EuropeanaIdMongo
 	public EuropeanaIdMongoServerImpl(MongoClient mongoClient, String databaseName) {
 		this.mongoClient = mongoClient;
 		this.databaseName = databaseName;
-		LOG.info("[corelib.lookup EuropeanaIdMongoServer] created");
+		LOG.info("[EuropeanaIdMongoServer] [constructor]");
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class EuropeanaIdMongoServerImpl implements MongoServer, EuropeanaIdMongo
 		if (createIndexes) {
 			datastore.ensureIndexes();
 		}
-		LOG.info("[corelib.lookup EuropeanaIdMongoServer] datastore is created");
+		LOG.info("[EuropeanaIdMongoServer] [createDatastore()] datastore is created");
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class EuropeanaIdMongoServerImpl implements MongoServer, EuropeanaIdMongo
 	 */
 	@Override
 	public Datastore getDatastore() {
-		LOG.info("[corelib.lookup EuropeanaIdMongoServer] get datastore");
+		LOG.info("[EuropeanaIdMongoServer] [getDatastore()]");
 		return this.datastore;
 	}
 
@@ -82,7 +82,7 @@ public class EuropeanaIdMongoServerImpl implements MongoServer, EuropeanaIdMongo
 	@Override
 	public void setDatastore(Datastore datastore) {
 		this.datastore = datastore;
-		LOG.info("[corelib.lookup EuropeanaIdMongoServer] datastore is set");
+		LOG.info("[EuropeanaIdMongoServer] [setDatastore()]");
 
 	}
 
@@ -91,7 +91,7 @@ public class EuropeanaIdMongoServerImpl implements MongoServer, EuropeanaIdMongo
 	 */
 	@Override
 	public void close() {
-		LOG.info("[corelib.lookup EuropeanaIdMongoServer] closing MongoClient");
+		LOG.info("[EuropeanaIdMongoServer] [close()] closing MongoClient");
 		mongoClient.close();
 	}
 
@@ -103,7 +103,7 @@ public class EuropeanaIdMongoServerImpl implements MongoServer, EuropeanaIdMongo
 		try {
 			return datastore.find(EuropeanaId.class).field(OLD_ID).equal(oldId).get();
 		} catch (Exception e) {
-			LOG.error("[corelib.lookup EuropeanaIdMongoServer] Error retrieving europeanaId", e);
+			LOG.error("[EuropeanaIdMongoServer] [retrieveEuropeanaIdFromOld()] Error retrieving europeanaId", e);
 		}
 		return null;
 	}
@@ -118,8 +118,7 @@ public class EuropeanaIdMongoServerImpl implements MongoServer, EuropeanaIdMongo
 	 */
 	@Override
 	public List<EuropeanaId> retrieveEuropeanaIdFromNew(String newId) {
-		return datastore.find(EuropeanaId.class).field(NEW_ID).equal(newId)
-				.asList();
+		return datastore.find(EuropeanaId.class).field(NEW_ID).equal(newId).asList();
 	}
 
 	/**
@@ -127,8 +126,7 @@ public class EuropeanaIdMongoServerImpl implements MongoServer, EuropeanaIdMongo
 	 */
 	@Override
 	public boolean oldIdExists(String newId) {
-		return datastore.find(EuropeanaId.class).field(NEW_ID).equal(newId)
-				.get() != null;
+		return datastore.find(EuropeanaId.class).field(NEW_ID).equal(newId).get() != null;
 	}
 
 	/**
