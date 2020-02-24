@@ -52,12 +52,12 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
         MongoClientURI uri = new MongoClientURI(connectionUrl, clientOptions);
 //        MongoClientURI uri = new MongoClientURI(connectionUrl);
         defaultDatabase = uri.getDatabase();
-        LOG.info("[corelib.storage MongoProvider] [connectionUrl] Creating new MongoClient - {} {}",
+        LOG.info("[corelib.storage MongoProvider] Creating new MongoClient for {}, database: {}",
                  uri.getHosts(),
                  (StringUtils.isEmpty(defaultDatabase) ? "" : ", database " + defaultDatabase));
         mongo = new MongoClient(uri);
         initThreadPool();
-        LOG.info("===> nr of connections is now: {}", this.nrConnections);
+        LOG.info("===> the number of counted connections is now: {}", this.nrConnections);
     }
 
     /**
