@@ -54,7 +54,7 @@ public class MongoProviderImpl implements MongoProvider, ConnectionPoolListener 
         definedDatabase = uri.getDatabase();
         LOG.info("[MongoProvider] [constructor] creating new MongoClient for {}; {}",
                  uri.getHosts(),
-                 (StringUtils.isEmpty(definedDatabase) ? "default database" : ", database: " + definedDatabase + " "));
+                 (StringUtils.isEmpty(definedDatabase) ? "default database" : "database: " + definedDatabase + " "));
         mongo = new MongoClient(uri);
         initThreadPool();
         LOG.info("[MongoProvider] [constructor] connections count: {}", this.nrConnections);
